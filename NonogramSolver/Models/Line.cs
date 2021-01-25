@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NonogramSolver
+namespace NonogramSolver.Models
 {
     public class Line
     {

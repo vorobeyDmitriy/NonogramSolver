@@ -1,6 +1,6 @@
 ﻿using NonogramSolver.Enumerations;
 
-namespace NonogramSolver
+namespace NonogramSolver.Models
 {
     public class Cell
     {
