@@ -75,7 +75,7 @@ namespace NonogramSolver
                 line.Cells[lastCrossIndex].Cross();
             }
             
-            number.Resolve();
+            number.Resolve(startIndex, startIndex + number.Number -1);
         }
     }
 }
