@@ -6,7 +6,7 @@ namespace NonogramSolver.Models
 {
     public class Cell
     {
-        private CellStatus Status { get; set; }
+        public CellStatus Status { get; private set; }
 
         public void Fill()
         {

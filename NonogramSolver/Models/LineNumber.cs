@@ -3,7 +3,7 @@
     public class LineNumber
     {
         public int Number { get; set; }
-        private bool IsResolved { get; set; }
+        public bool IsResolved { get; private set; }
         
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
