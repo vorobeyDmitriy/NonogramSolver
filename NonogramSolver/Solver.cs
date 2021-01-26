@@ -57,6 +57,8 @@ namespace NonogramSolver
                 var startIndex = line.Numbers.Take(i).Sum(x=>x.Number) + i; 
                 FillNumber(line, line.Numbers[i], startIndex);
             }
+            
+            line.Resolve();
         }
 
         public void FillNumber(Line line, LineNumber number, int startIndex)

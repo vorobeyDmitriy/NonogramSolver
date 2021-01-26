@@ -7,6 +7,12 @@ namespace NonogramSolver.Models
     {
         public List<Cell> Cells { get; set; }
         public List<LineNumber> Numbers { get; set; }
+        private bool IsResolved { get; set; }
+
+        public void Resolve()
+        {
+            IsResolved = true;
+        }
         
         public int GetLengthWithSpaces()
         {

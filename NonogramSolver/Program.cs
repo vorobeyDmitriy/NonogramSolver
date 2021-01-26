@@ -103,8 +103,6 @@ namespace NonogramSolver
 
             var puzzle = solver.Solve(5, 4, horizontalLines, verticalLines);
             puzzle.Print();
-
-            Console.ReadLine();
         }
     }
 }
