@@ -4,7 +4,7 @@ namespace NonogramSolver.Enumerations
 {
     public enum CellStatus
     {
-        [Description("")]
+        [Description(".")]
         Empty,
         [Description("X")]
         Filled,

@@ -42,7 +42,7 @@ namespace NonogramSolver
                     },
                     new LineNumber
                     {
-                        Number = 1
+                        Number = 2
                     },
                 },
                 new()
@@ -96,7 +96,7 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 2
+                        Number = 3
                     },
                 },
             };
