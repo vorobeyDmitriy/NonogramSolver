@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NonogramSolver.Core.Enumerations;
+using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 
 namespace NonogramSolver.Core
 {
-    public class Solver
+    public class Solver : ISolver
     {
-        public static Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
+        public Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers)
         {
             var puzzle = new Puzzle(rows, columns, horizontalNumbers, verticalNumbers);

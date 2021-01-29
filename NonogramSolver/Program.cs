@@ -8,8 +8,6 @@ namespace NonogramSolver
     {
         static void Main(string[] args)
         {
-            var solver = new Solver();
-
             var verticalLines = new List<List<LineNumber>>
             {
                 new()
@@ -101,7 +99,8 @@ namespace NonogramSolver
                 },
             };
 
-            var puzzle = Solver.Solve(5, 4, horizontalLines, verticalLines);
+            var solver = new Solver();
+            var puzzle = solver.Solve(5, 4, horizontalLines, verticalLines);
             new PuzzlePrintService().Print(puzzle);
         }
     }
