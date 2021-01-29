@@ -37,7 +37,7 @@ namespace NonogramSolver.Core.Models
         public Line GetLine(int order, bool isRow)
         {
             Line line;
-            
+
             if (isRow)
             {
                 line = new Line
@@ -46,9 +46,9 @@ namespace NonogramSolver.Core.Models
                     Numbers = HorizontalNumbers[order]
                 };
 
-                return line; 
+                return line;
             }
-            
+
             var result = Desk.Select(x => x[order]).ToList();
 
             line = new Line
@@ -58,6 +58,31 @@ namespace NonogramSolver.Core.Models
             };
 
             return line;
+        }
+
+        public bool IsResolved()
+        {
+            for (var columnIndex = 0; columnIndex < Columns; columnIndex++)
+            {
+                var line = GetLine(columnIndex, false);
+
+                if (!line.IsResolved())
+                {
+                    return false;
+                }
+            }
+
+            for (var rowIndex = 0; rowIndex < Rows; rowIndex++)
+            {
+                var line = GetLine(rowIndex, true);
+
+                if (!line.IsResolved())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

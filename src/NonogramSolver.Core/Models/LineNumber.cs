@@ -4,6 +4,7 @@
     {
         public int Number { get; set; }
         public bool IsResolved { get; private set; }
+        public Line Line { get; set; }
         
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }

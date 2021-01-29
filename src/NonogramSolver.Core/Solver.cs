@@ -14,8 +14,8 @@ namespace NonogramSolver.Core
             var puzzle = new Puzzle(rows, columns, horizontalNumbers, verticalNumbers);
             FillTrivialLines(puzzle, true, puzzle.Rows, puzzle.Columns);
             FillTrivialLines(puzzle, false, puzzle.Columns, puzzle.Rows);
-            FillEdgeNumbers(puzzle, true, puzzle.Rows);
-            FillEdgeNumbers(puzzle, false, puzzle.Columns);
+            // FillEdgeNumbers(puzzle, true, puzzle.Rows);
+            // FillEdgeNumbers(puzzle, false, puzzle.Columns);
 
             return puzzle;
         }
@@ -31,7 +31,13 @@ namespace NonogramSolver.Core
                     continue;
                 }
 
-                FillLine(column);
+                var startIndex = 0;
+
+                for (var i = 0; i < column.Numbers.Count; i++)
+                {
+                    FillNumber(column, column.Numbers[i], startIndex);
+                    startIndex = column.Numbers[i].Number + i + 1;
+                }
             }
         }
 
@@ -40,6 +46,11 @@ namespace NonogramSolver.Core
             for (var index = 0; index < linesCount; index++)
             {
                 var line = puzzle.GetLine(index, isRow);
+
+                if (line.IsResolved())
+                {
+                    continue;
+                }
 
                 var firstNumber = line.Numbers.FirstOrDefault();
                 var lastNumber = line.Numbers.LastOrDefault();
@@ -54,25 +65,6 @@ namespace NonogramSolver.Core
                     CheckAndFillEdgeNumbers(line, lastNumber);
                 }
             }
-        }
-
-        private static void FillLine(Line line)
-        {
-            if (line.Numbers.Count == 1)
-            {
-                foreach (var cell in line.Cells)
-                {
-                    cell.Fill();
-                }
-            }
-
-            for (var i = 0; i < line.Numbers.Count; i++)
-            {
-                var startIndex = line.Numbers.Take(i).Sum(x => x.Number) + i;
-                FillNumber(line, line.Numbers[i], startIndex);
-            }
-
-            line.Resolve();
         }
 
         private static void FillNumber(Line line, LineNumber number, int startIndex)
