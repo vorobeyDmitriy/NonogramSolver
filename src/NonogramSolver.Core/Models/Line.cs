@@ -7,6 +7,7 @@ namespace NonogramSolver.Core.Models
     {
         public List<Cell> Cells { get; set; }
         public List<LineNumber> Numbers { get; set; }
+        public bool IsRow { get; set; }
 
         public bool IsResolved()
         {

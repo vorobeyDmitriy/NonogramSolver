@@ -7,11 +7,11 @@ namespace NonogramSolver.Core.Interfaces
     {
         void CheckLinesForResolving(Puzzle puzzle);
         
-        void FillCrossedNumbers(Puzzle puzzle, bool isRow, int linesCount);
+        void FillCrossedNumbers(Puzzle puzzle);
         
-        void FillEdgeNumbers(Puzzle puzzle, bool isRow, int linesCount);
+        void FillEdgeNumbers(Puzzle puzzle);
         
-        void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength);
+        void FillTrivialLines(Puzzle puzzle);
         
         Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers);

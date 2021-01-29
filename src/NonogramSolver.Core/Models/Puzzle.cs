@@ -43,7 +43,8 @@ namespace NonogramSolver.Core.Models
                 line = new Line
                 {
                     Cells = Desk[order].ToList(),
-                    Numbers = HorizontalNumbers[order]
+                    Numbers = HorizontalNumbers[order],
+                    IsRow = true
                 };
 
                 return line;
@@ -54,7 +55,8 @@ namespace NonogramSolver.Core.Models
             line = new Line
             {
                 Cells = result,
-                Numbers = VerticalNumbers[order]
+                Numbers = VerticalNumbers[order],
+                IsRow = false
             };
 
             return line;

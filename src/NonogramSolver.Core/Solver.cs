@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NonogramSolver.Core.Enumerations;
-using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 
@@ -22,16 +21,13 @@ namespace NonogramSolver.Core
 
         public Puzzle Solve(Puzzle puzzle)
         {
-            FillTrivialLines(puzzle, true, puzzle.Rows, puzzle.Columns);
-            FillTrivialLines(puzzle, false, puzzle.Columns, puzzle.Rows);
+            FillTrivialLines(puzzle);
             var maxIterations = MaxIterations;
 
             while (!puzzle.IsResolved() && maxIterations > 0)
             {
-                FillEdgeNumbers(puzzle, true, puzzle.Rows);
-                FillEdgeNumbers(puzzle, false, puzzle.Columns);
-                FillCrossedNumbers(puzzle, true, puzzle.Rows);
-                FillCrossedNumbers(puzzle, false, puzzle.Columns);
+                FillEdgeNumbers(puzzle);
+                FillCrossedNumbers(puzzle);
                 CheckLinesForResolving(puzzle);
                 maxIterations--;
             }
@@ -65,33 +61,31 @@ namespace NonogramSolver.Core
             }
         }
         
-        public void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength)
+        public void FillTrivialLines(Puzzle puzzle)
         {
-            for (var columnIndex = 0; columnIndex < linesCount; columnIndex++)
+            foreach (var line in puzzle.GetLines())
             {
-                var column = puzzle.GetLine(columnIndex, isRow);
-
-                if (column.GetLengthWithSpaces() != maxLineNumbersLength)
+                var maxLineNumbersLength = line.IsRow ? puzzle.Columns : puzzle.Rows;
+                if (line.GetLengthWithSpaces() != maxLineNumbersLength)
                 {
                     continue;
                 }
 
                 var startIndex = 0;
 
-                for (var i = 0; i < column.Numbers.Count; i++)
+                for (var i = 0; i < line.Numbers.Count; i++)
                 {
-                    FillNumber(column, column.Numbers[i], startIndex);
-                    startIndex = column.Numbers.Take(i + 1).Sum(x => x.Number) + i + 1;
-                }
+                    FillNumber(line, line.Numbers[i], startIndex);
+                    startIndex = line.Numbers.Take(i + 1).Sum(x => x.Number) + i + 1;
+                } 
             }
+            
         }
 
-        public void FillEdgeNumbers(Puzzle puzzle, bool isRow, int linesCount)
+        public void FillEdgeNumbers(Puzzle puzzle)
         {
-            for (var index = 0; index < linesCount; index++)
+            foreach (var line in puzzle.GetLines())
             {
-                var line = puzzle.GetLine(index, isRow);
-
                 if (line.IsResolved())
                 {
                     continue;
@@ -114,12 +108,10 @@ namespace NonogramSolver.Core
             }
         }
 
-        public void FillCrossedNumbers(Puzzle puzzle, bool isRow, int linesCount)
+        public void FillCrossedNumbers(Puzzle puzzle)
         {
-            for (var index = 0; index < linesCount; index++)
+            foreach (var line in puzzle.GetLines())
             {
-                var line = puzzle.GetLine(index, isRow);
-
                 if (line.IsResolved())
                 {
                     continue;
