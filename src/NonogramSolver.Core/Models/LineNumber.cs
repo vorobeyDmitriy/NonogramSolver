@@ -1,4 +1,4 @@
-﻿namespace NonogramSolver.Models
+﻿namespace NonogramSolver.Core.Models
 {
     public class LineNumber
     {

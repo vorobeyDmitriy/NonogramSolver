@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using NonogramSolver.Enumerations;
+using NonogramSolver.Core.Enumerations;
 
-namespace NonogramSolver.Models
+namespace NonogramSolver.Core.Models
 {
     public class Cell
     {

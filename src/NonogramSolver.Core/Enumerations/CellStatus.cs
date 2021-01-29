@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NonogramSolver.Enumerations
+namespace NonogramSolver.Core.Enumerations
 {
     public enum CellStatus
     {

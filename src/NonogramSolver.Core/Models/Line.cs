@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace NonogramSolver.Models
+namespace NonogramSolver.Core.Models
 {
     public class Line
     {

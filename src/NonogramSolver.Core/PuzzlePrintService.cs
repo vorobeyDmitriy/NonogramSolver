@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using NonogramSolver.Enumerations;
-using NonogramSolver.Models;
+using NonogramSolver.Core.Enumerations;
+using NonogramSolver.Core.Models;
 
-namespace NonogramSolver
+namespace NonogramSolver.Core
 {
     public class PuzzlePrintService
     {
