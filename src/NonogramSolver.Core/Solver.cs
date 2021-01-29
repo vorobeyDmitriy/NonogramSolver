@@ -32,12 +32,39 @@ namespace NonogramSolver.Core
                 FillEdgeNumbers(puzzle, false, puzzle.Columns);
                 FillCrossedNumbers(puzzle, true, puzzle.Rows);
                 FillCrossedNumbers(puzzle, false, puzzle.Columns);
+                CheckLinesForResolving(puzzle);
                 maxIterations--;
             }
 
             return puzzle;
         }
 
+        public void CheckLinesForResolving(Puzzle puzzle)
+        {
+            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
+
+            foreach (var line in lines)
+            {
+                var filledCellsCount = line.Cells.Count(x => x.Status == CellStatus.Filled);
+                var sumOfNumbers = line.Numbers.Sum(x => x.Number);
+
+                if (sumOfNumbers != filledCellsCount)
+                {
+                    continue;
+                }
+
+                foreach (var cell in line.Cells)
+                {
+                    cell.Cross();
+                }
+
+                foreach (var number in line.Numbers)
+                {
+                    number.Resolve();
+                }
+            }
+        }
+        
         public void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength)
         {
             for (var columnIndex = 0; columnIndex < linesCount; columnIndex++)

@@ -13,6 +13,10 @@
             StartIndex = start;
             EndIndex = end;
         }
-
+        
+        public void Resolve()
+        {
+            IsResolved = true;
+        }
     }
 }
