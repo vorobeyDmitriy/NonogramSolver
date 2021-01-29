@@ -15,44 +15,57 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 3
+                        Number = 7
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 2
                     },
                     new LineNumber
                     {
                         Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 3
                     }
                 },
             };
-            
+
             var horizontalLines = new List<List<LineNumber>>
             {
                 new()
@@ -70,8 +83,16 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 4
-                    }
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
                 },
                 new()
                 {
@@ -83,9 +104,21 @@ namespace NonogramSolver
                     {
                         Number = 1
                     },
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
                 },
                 new()
                 {
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
                     new LineNumber
                     {
                         Number = 1
@@ -95,13 +128,47 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 3
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
                     },
                 },
             };
 
             var solver = new Solver();
-            var puzzle = solver.Solve(5, 4, horizontalLines, verticalLines);
+            var puzzle = solver.Solve(7, 7, horizontalLines, verticalLines);
             puzzle.Print();
         }
     }
