@@ -8,14 +8,22 @@ namespace NonogramSolver.Core
 {
     public class Solver : ISolver
     {
+        private const int MaxIterations = 1000;
+        
         public Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers)
         {
             var puzzle = new Puzzle(rows, columns, horizontalNumbers, verticalNumbers);
             FillTrivialLines(puzzle, true, puzzle.Rows, puzzle.Columns);
             FillTrivialLines(puzzle, false, puzzle.Columns, puzzle.Rows);
-            // FillEdgeNumbers(puzzle, true, puzzle.Rows);
-            // FillEdgeNumbers(puzzle, false, puzzle.Columns);
+            var maxIterations = MaxIterations;
+            
+            while (!puzzle.IsResolved() || maxIterations > 0)
+            {
+                FillEdgeNumbers(puzzle, true, puzzle.Rows);
+                FillEdgeNumbers(puzzle, false, puzzle.Columns);
+                maxIterations--;
+            }
 
             return puzzle;
         }
