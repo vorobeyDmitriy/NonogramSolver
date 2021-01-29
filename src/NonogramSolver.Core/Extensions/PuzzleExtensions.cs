@@ -3,11 +3,11 @@ using System.Linq;
 using NonogramSolver.Core.Enumerations;
 using NonogramSolver.Core.Models;
 
-namespace NonogramSolver.Core
+namespace NonogramSolver.Core.Extensions
 {
-    public class PuzzlePrintService
+    public static class PuzzleExtensions
     {
-        public void Print(Puzzle puzzle)
+        public static void Print(this Puzzle puzzle)
         {
             var additionalRows = puzzle.VerticalNumbers.Select(x => x.Count).Max();
             var additionalColumns = puzzle.HorizontalNumbers.Select(x => x.Count).Max();
@@ -35,8 +35,10 @@ namespace NonogramSolver.Core
                 number.Reverse();
             }
         }
-
-        private void PrintHeaderOfPuzzle(Puzzle puzzle, int additionalRows, int additionalColumns)
+        
+        #region Print Methods
+        
+        private static void PrintHeaderOfPuzzle(Puzzle puzzle, int additionalRows, int additionalColumns)
         {
             for (var i = 0; i < additionalRows; i++)
             {
@@ -59,7 +61,7 @@ namespace NonogramSolver.Core
             }
         }
 
-        private void PrintBodyOfPuzzle(Puzzle puzzle, int additionalColumns)
+        private static void PrintBodyOfPuzzle(Puzzle puzzle, int additionalColumns)
         {
             for (var i = 0; i < puzzle.Rows; i++)
             {
@@ -68,23 +70,12 @@ namespace NonogramSolver.Core
                     if (j < additionalColumns)
                     {
                         var number = puzzle.HorizontalNumbers[i].ElementAtOrDefault(additionalColumns-j-1);
-
                         Write(number?.Number, ConsoleColor.DarkRed,number?.IsResolved == true);
                     }
                     else
                     {
                         var cell = puzzle.Desk[i][j - additionalColumns];
-                        ConsoleColor color;
-
-                        if (cell.Status == CellStatus.Filled)
-                        {
-                            color = ConsoleColor.White;
-                        }
-                        else
-                        {
-                            color = ConsoleColor.DarkGray;
-                        }
-                        
+                        var color = cell.Status == CellStatus.Filled ? ConsoleColor.White : ConsoleColor.DarkGray;
                         Write(puzzle.Desk[i][j-additionalColumns], color, true);
                     }
                 }
@@ -93,7 +84,7 @@ namespace NonogramSolver.Core
             }
         }
 
-        private void Write(object value, ConsoleColor color = ConsoleColor.DarkGray, bool colorNeeds = false)
+        private static void Write(object value, ConsoleColor color = ConsoleColor.DarkGray, bool colorNeeds = false)
         {
             if (colorNeeds)
             {
@@ -103,5 +94,8 @@ namespace NonogramSolver.Core
             Console.Write("{0,3}", value);
             Console.ResetColor();
         }
+
+        #endregion
+
     }
 }

@@ -59,6 +59,36 @@ namespace NonogramSolver.Core.Models
 
             return line;
         }
+        
+        public List<Line> GetLines()
+        {
+            var result = new List<Line>();
+            
+            for (var i = 0; i < Rows; i++)
+            {
+                result.Add(GetLine(i, true));                
+            }
+            
+            for (var i = 0; i < Columns; i++)
+            {
+                result.Add(GetLine(i, false));                
+            }
+
+            return result;
+        }
+
+        public List<Line> GetLines(bool isRow)
+        {
+            var linesCount = isRow ? Rows : Columns;
+            var result = new List<Line>();
+            
+            for (var i = 0; i < linesCount; i++)
+            {
+                result.Add(GetLine(i, isRow));                
+            }
+
+            return result;
+        }
 
         public bool IsResolved()
         {

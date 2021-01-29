@@ -14,6 +14,13 @@ namespace NonogramSolver.Core
             List<List<LineNumber>> verticalNumbers)
         {
             var puzzle = new Puzzle(rows, columns, horizontalNumbers, verticalNumbers);
+            puzzle = Solve(puzzle);
+            
+            return puzzle;
+        }
+        
+        public Puzzle Solve(Puzzle puzzle)
+        {
             FillTrivialLines(puzzle, true, puzzle.Rows, puzzle.Columns);
             FillTrivialLines(puzzle, false, puzzle.Columns, puzzle.Rows);
             var maxIterations = MaxIterations;
@@ -28,7 +35,7 @@ namespace NonogramSolver.Core
             return puzzle;
         }
 
-        private static void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength)
+        public void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength)
         {
             for (var columnIndex = 0; columnIndex < linesCount; columnIndex++)
             {

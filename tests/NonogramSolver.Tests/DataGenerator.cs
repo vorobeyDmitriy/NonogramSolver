@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using NonogramSolver.Core;
-using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Models;
 
-namespace NonogramSolver
+namespace NonogramSolver.Tests
 {
-    class Program
+    public static class DataGenerator
     {
-        static void Main(string[] args)
+        public static Puzzle GetPuzzleWithTrivialLines() 
         {
             var verticalLines = new List<List<LineNumber>>
             {
@@ -100,9 +98,7 @@ namespace NonogramSolver
                 },
             };
 
-            var solver = new Solver();
-            var puzzle = solver.Solve(5, 4, horizontalLines, verticalLines);
-            puzzle.Print();
+            return new Puzzle(5, 4, horizontalLines, verticalLines);
         }
     }
 }
