@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NonogramSolver.Core.Enumerations;
+using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 
@@ -29,6 +30,8 @@ namespace NonogramSolver.Core
             {
                 FillEdgeNumbers(puzzle, true, puzzle.Rows);
                 FillEdgeNumbers(puzzle, false, puzzle.Columns);
+                FillCrossedNumbers(puzzle, true, puzzle.Rows);
+                FillCrossedNumbers(puzzle, false, puzzle.Columns);
                 maxIterations--;
             }
 
@@ -56,7 +59,7 @@ namespace NonogramSolver.Core
             }
         }
 
-        private static void FillEdgeNumbers(Puzzle puzzle, bool isRow, int linesCount)
+        public void FillEdgeNumbers(Puzzle puzzle, bool isRow, int linesCount)
         {
             for (var index = 0; index < linesCount; index++)
             {
@@ -73,12 +76,52 @@ namespace NonogramSolver.Core
                 if (firstNumber != null && !firstNumber.IsResolved)
                 {
                     CheckAndFillEdgeNumbers(line, firstNumber, false);
+
                     continue;
                 }
 
                 if (lastNumber != null && !lastNumber.IsResolved)
                 {
                     CheckAndFillEdgeNumbers(line, lastNumber, true);
+                }
+            }
+        }
+
+        public void FillCrossedNumbers(Puzzle puzzle, bool isRow, int linesCount)
+        {
+            for (var index = 0; index < linesCount; index++)
+            {
+                var line = puzzle.GetLine(index, isRow);
+
+                if (line.IsResolved())
+                {
+                    continue;
+                }
+
+                var numbersCount = line.Numbers.Count;
+
+                for (var i = 0; i < numbersCount; i++)
+                {
+                    var leftPosition = line.Numbers.Take(i + 1).Sum(x => x.Number) + i -1;
+
+                    line.Numbers.Reverse();
+
+                    var occupiedSpaceFromRight =
+                        line.Numbers.Take(numbersCount - i).Sum(x => x.Number) + numbersCount - 2 - i;
+
+                    line.Numbers.Reverse();
+
+                    var rightPosition = line.Cells.Count - 1 - occupiedSpaceFromRight;
+
+                    if (rightPosition > leftPosition)
+                    {
+                        continue;
+                    }
+
+                    for (var j = rightPosition; j <= leftPosition; j++)
+                    {
+                        line.Cells[j].Fill();
+                    }
                 }
             }
         }
@@ -106,7 +149,7 @@ namespace NonogramSolver.Core
             {
                 line.Cells.Reverse();
             }
-            
+
             for (var i = 0; i < line.Cells.Count - 1; i++)
             {
                 if (line.Cells[i].Status == CellStatus.Empty)
@@ -123,7 +166,7 @@ namespace NonogramSolver.Core
 
                 break;
             }
-            
+
             if (fromTheEnd)
             {
                 line.Cells.Reverse();

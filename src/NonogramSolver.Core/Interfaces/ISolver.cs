@@ -5,6 +5,8 @@ namespace NonogramSolver.Core.Interfaces
 {
     public interface ISolver
     {
+        void FillEdgeNumbers(Puzzle puzzle, bool isRow, int linesCount);
+        
         void FillTrivialLines(Puzzle puzzle, bool isRow, int linesCount, int maxLineNumbersLength);
         
         Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
