@@ -35,25 +35,27 @@ namespace NonogramSolver.Models
             }
         }
 
-        public Line GetColumnLine(int column)
+        public Line GetLine(int order, bool isRow)
         {
-            var result = Desk.Select(x => x[column]).ToList();
+            Line line;
+            
+            if (isRow)
+            {
+                line = new Line
+                {
+                    Cells = Desk[order].ToList(),
+                    Numbers = HorizontalNumbers[order]
+                };
 
-            var line = new Line
+                return line; 
+            }
+            
+            var result = Desk.Select(x => x[order]).ToList();
+
+            line = new Line
             {
                 Cells = result,
-                Numbers = VerticalNumbers[column]
-            };
-
-            return line;
-        }
-
-        public Line GetRowLine(int row)
-        {
-            var line = new Line
-            {
-                Cells = Desk[row].ToList(),
-                Numbers = HorizontalNumbers[row]
+                Numbers = VerticalNumbers[order]
             };
 
             return line;

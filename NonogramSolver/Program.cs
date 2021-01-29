@@ -101,7 +101,7 @@ namespace NonogramSolver
                 },
             };
 
-            var puzzle = solver.Solve(5, 4, horizontalLines, verticalLines);
+            var puzzle = Solver.Solve(5, 4, horizontalLines, verticalLines);
             new PuzzlePrintService().Print(puzzle);
         }
     }
