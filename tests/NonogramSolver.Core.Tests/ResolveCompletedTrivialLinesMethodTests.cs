@@ -8,19 +8,18 @@ using NUnit.Framework;
 
 namespace NonogramSolver.Core.Tests
 {
-    public class SolverTests : TestClassBase
+    public class ResolveCompletedTrivialLinesMethodTests : TestClassBase
     {
-        protected override IModule Module => new SolverTestModule();
+        protected override IModule Module => new ResolveCompletedTrivialLinesMethodTestModule();
 
         [Test]
         public void FillTrivialLines_PuzzleWithTrivialLines_LinesResolved()
         {
-            var solver = GetService<ISolver>();
+            var method = GetService<IMethod>();
             var puzzle = DataGenerator.GetPuzzleWithTrivialLines();
             const int expectedTrivialLines = 5;
 
-            solver.FillTrivialLines(puzzle);
-            solver.FillTrivialLines(puzzle);
+            method.Execute(puzzle);
 
             var resolverTrivialLines = puzzle.GetLines().Count(x => x.IsResolved());
             Assert.AreEqual(expectedTrivialLines, resolverTrivialLines);
@@ -29,12 +28,11 @@ namespace NonogramSolver.Core.Tests
         [Test]
         public void FillTrivialLines_PuzzleWithTrivialLines_CellsFilled()
         {
-            var solver = GetService<ISolver>();
+            var method = GetService<IMethod>();
             var puzzle = DataGenerator.GetPuzzleWithTrivialLines();
             const int expectedCellsFilled = 13;
 
-            solver.FillTrivialLines(puzzle);
-            solver.FillTrivialLines(puzzle);
+            method.Execute(puzzle);
 
             var filledCells = puzzle
                               .GetLines(false)
