@@ -25,11 +25,11 @@ namespace NonogramSolver.Core.Services.Methods
                     continue;
                 }
 
-                var variants = Get(groups, unresolvedNumbers);
+                var variants = GetPossibleLineVariants(groups, unresolvedNumbers);
             }
         }
 
-        private List<LineVariant> Get(List<Group> groups, List<LineNumber> numbers)
+        private List<LineVariant> GetPossibleLineVariants(List<Group> groups, List<LineNumber> numbers)
         {
             var result = new List<LineVariant>();
 
@@ -39,7 +39,7 @@ namespace NonogramSolver.Core.Services.Methods
                 result.AddRange(variants);
             }
 
-            return result;
+            return result.Where(x=>x.IsValid(numbers.Select(x=>x.Number).ToList(), groups)).ToList();
         }
 
         private List<LineVariant> GetLineVariants(int groupsCount, int groupIndex, List<LineNumber> numbers, int numberOffset = 0)
@@ -97,6 +97,7 @@ namespace NonogramSolver.Core.Services.Methods
 
         private bool GroupCanContainsNumbers(Group group, List<LineNumber> numbers)
         {
+            //todo: repeat
             var numbersLengthWithSpaces = numbers.Sum(x => x.Number) + numbers.Count - 1;
 
             return group.Cells.Count >= numbersLengthWithSpaces;
