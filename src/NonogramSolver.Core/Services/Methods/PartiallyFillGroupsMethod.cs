@@ -39,7 +39,7 @@ namespace NonogramSolver.Core.Services.Methods
                 result.AddRange(variants);
             }
 
-            return result.Where(x=>x.IsValid(numbers.Select(x=>x.Number).ToList(), groups)).ToList();
+            return result.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
         }
 
         private List<LineVariant> GetLineVariants(int groupsCount, int groupIndex, List<LineNumber> numbers, int numberOffset = 0)
