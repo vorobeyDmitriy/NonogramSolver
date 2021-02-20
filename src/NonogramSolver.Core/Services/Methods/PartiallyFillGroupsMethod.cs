@@ -25,59 +25,63 @@ namespace NonogramSolver.Core.Services.Methods
                     continue;
                 }
 
-                var lineVariants = GetVariants(groups, unresolvedNumbers)
-                    .Where(x=>x.IsValid(unresolvedNumbers.Count))
-                    .ToList();
-                
+                var variants = GetPossibleLineVariants(groups, unresolvedNumbers);
+
                 //todo: get common numbers for all groups
             }
         }
 
-        private List<LineVariant> GetVariants(List<Group> groups, List<LineNumber> numbers)
+        private List<LineVariant> GetPossibleLineVariants(List<Group> groups, List<LineNumber> numbers)
         {
-            return groups.Select((_, i) => new LineVariant
+            var result = new List<LineVariant>();
+
+            for (int i = 0; i < groups.Count; i++)
             {
-                Variants = GetGroupVariants(groups.Skip(i).ToList(), numbers)
-            }).ToList();
+                var variants = GetLineVariants(groups.Count, i, numbers);
+                result.AddRange(variants);
+            }
+
+            return result.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
         }
 
-        private List<GroupVariant> GetGroupVariants(List<Group> groups, List<LineNumber> groupNumbers,
-            int groupIndex = 0, int groupNumbersOffset = 0)
+        private List<LineVariant> GetLineVariants(int groupsCount, int groupIndex, List<LineNumber> numbers, int numberOffset = 0)
         {
-            var result = new List<GroupVariant>();
-            var group = groups.ElementAtOrDefault(groupIndex);
-
-            if (group == null)
+            var lineVariants = new List<LineVariant>();
+            if (groupIndex >= groupsCount)
             {
-                return null;
+                return new List<LineVariant>();
+            }
+            
+            for (int j = 0; j < numbers.Count; j++)
+            {
+                var result = new List<GroupVariant>();
+                var groupVariant = new GroupVariant
+                {
+                    GroupIndex = groupIndex,
+                    NumbersIndexes = numbers.Take(numbers.Count-j).Select((_, i) => i+numberOffset).ToList()
+                };
+
+                if (j != 0)
+                {
+                    var otherVariants = GetLineVariants(groupsCount, groupIndex + 1, numbers.TakeLast(j).ToList(), numbers.Count-j);
+
+                    if (otherVariants.Any())
+                    {
+                        result.AddRange(otherVariants.FirstOrDefault().Variants);
+                        lineVariants.AddRange(otherVariants.Skip(1).Select(variant => new LineVariant {Variants = variant.Variants}));
+                    }
+                }
+                
+                result.Add(groupVariant);
+
+                var lineVariant = new LineVariant
+                {
+                    Variants = result
+                };
+                lineVariants.Add(lineVariant);
             }
 
-            var numbers = GetGroupNumbers(group, groupNumbers);
-
-            result.Add(new GroupVariant
-            {
-                GroupIndex = groupIndex,
-                NumbersIndexes = numbers.Select((_, i) => groupNumbersOffset + i).ToList()
-            });
-
-            if (numbers.Count == groupNumbers.Count && groupNumbers.Count > 0)
-            {
-                return result;
-            }
-
-            groupIndex++;
-
-            var otherVariants = GetGroupVariants(groups, groupNumbers.Skip(numbers.Count).ToList(),
-                groupIndex, groupNumbersOffset + numbers.Count);
-
-            if (otherVariants == null)
-            {
-                return result;
-            }
-
-            result.AddRange(otherVariants);
-
-            return result;
+            return lineVariants;
         }
 
         private List<LineNumber> GetGroupNumbers(Group group, List<LineNumber> numbers)
@@ -95,6 +99,7 @@ namespace NonogramSolver.Core.Services.Methods
 
         private bool GroupCanContainsNumbers(Group group, List<LineNumber> numbers)
         {
+            //todo: repeat
             var numbersLengthWithSpaces = numbers.Sum(x => x.Number) + numbers.Count - 1;
 
             return group.Cells.Count >= numbersLengthWithSpaces;

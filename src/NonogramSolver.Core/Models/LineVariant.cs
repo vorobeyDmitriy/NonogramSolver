@@ -7,11 +7,22 @@ namespace NonogramSolver.Core.Models
     {
         public List<GroupVariant> Variants { get; set; }
         
-        public bool IsValid(int numbersCount)
+        public bool IsValid(List<int> numbers, List<Group> groups)
         {
-            var maxIndex = Variants.Max(x => x.NumbersIndexes.Max()) + 1;
+            foreach (var variant in Variants)
+            {
+                var group = groups[variant.GroupIndex];
+                var groupNumbers = numbers.Where((_, index) => variant.NumbersIndexes.Contains(index));
+                
+                var numbersLengthWithSpaces = groupNumbers.Sum(x => x) + numbers.Count - 1;
 
-            return maxIndex == numbersCount;
+                if (group.Cells.Count < numbersLengthWithSpaces)
+                {
+                    return false;
+                }
+            }
+            
+            return true;
         }
     }
 }
