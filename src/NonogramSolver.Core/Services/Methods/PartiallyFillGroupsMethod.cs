@@ -28,6 +28,8 @@ namespace NonogramSolver.Core.Services.Methods
                 var lineVariants = GetVariants(groups, unresolvedNumbers)
                     .Where(x=>x.IsValid(unresolvedNumbers.Count))
                     .ToList();
+                
+                //todo: get common numbers for all groups
             }
         }
 
