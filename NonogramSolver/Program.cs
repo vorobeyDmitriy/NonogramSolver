@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NonogramSolver.Core;
 using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Models;
 using NonogramSolver.Core.Services;
@@ -11,7 +10,7 @@ namespace NonogramSolver
         static void Main(string[] args)
         {
             var solver = new Solver(new CellsService());
-            var puzzle = solver.Solve(GetThirdPuzzle());
+            var puzzle = solver.Solve(GetFirstPuzzle());
             puzzle.Print();
         }
 
@@ -167,7 +166,7 @@ namespace NonogramSolver
                 },
             };
 
-            return new Puzzle(5, 4, horizontalLines, verticalLines);
+            return new Puzzle(7, 7, horizontalLines, verticalLines);
         }
 
         private static Puzzle GetSecondPuzzle()

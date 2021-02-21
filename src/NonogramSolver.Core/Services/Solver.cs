@@ -44,21 +44,17 @@ namespace NonogramSolver.Core.Services
 
         public Puzzle Solve(Puzzle puzzle)
         {
-            // _trivialLinesMethod.Execute(puzzle);
-            // _completedLines.Execute(puzzle);
+            _trivialLinesMethod.Execute(puzzle);
+            _completedLines.Execute(puzzle);
 
-            var a = puzzle.GetLine(0, true).Cells;
-            a[3].Cross();
-            a[8].Cross();
-            puzzle.Print();
 
             var maxIterations = MaxIterations;
 
             while (!puzzle.IsResolved() && maxIterations > 0)
             {
-                // _edgeNumbersMethod.Execute(puzzle);
-                // _partiallyNumbersMethod.Execute(puzzle);
-                // _completedLines.Execute(puzzle);
+                _edgeNumbersMethod.Execute(puzzle);
+                _partiallyNumbersMethod.Execute(puzzle);
+                _completedLines.Execute(puzzle);
                 _partiallyGroupMethod.Execute(puzzle);
                 puzzle.Print();
 
