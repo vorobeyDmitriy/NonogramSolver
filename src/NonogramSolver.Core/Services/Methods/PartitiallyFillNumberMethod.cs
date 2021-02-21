@@ -10,7 +10,7 @@ namespace NonogramSolver.Core.Services.Methods
     /// <remarks>
     /// I.e. 3 |_ _ _ _ _| => 3 |_ _ X _ _|
     /// </remarks>
-    public class PartiallyFillNumberMethod : MethodBase
+    public class PartiallyFillNumberMethod : MethodBase, IGroupMethod
     {
         public PartiallyFillNumberMethod(ICellsService cellsService)
             : base(cellsService) { }
@@ -49,6 +49,25 @@ namespace NonogramSolver.Core.Services.Methods
                         line.Cells[j].Fill();
                     }
                 }
+            }
+        }
+
+        public void ProcessGroup(Group group, LineNumber number)
+        {
+            var leftPosition = number.Number - 1;
+
+            var occupiedSpaceFromRight = number.Number;
+
+            var rightPosition = group.Cells.Count - occupiedSpaceFromRight;
+
+            if (rightPosition > leftPosition)
+            {
+                return;
+            }
+
+            for (var j = rightPosition; j <= leftPosition; j++)
+            {
+                group.Cells[j].Fill();
             }
         }
     }

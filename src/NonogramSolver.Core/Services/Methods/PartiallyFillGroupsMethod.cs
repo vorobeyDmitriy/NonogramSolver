@@ -6,10 +6,22 @@ using NonogramSolver.Core.Models;
 
 namespace NonogramSolver.Core.Services.Methods
 {
+    /// <summary>
+    /// Method to split line into groups and get process all possible variants 
+    /// </summary>
+    /// <remarks>
+    /// I.e. 1 3 |_ O _ _ _ _ _| splits into two groups 1 |_| and 1 3 |_ _ _ _ _|
+    /// Result of processing is 1 3 |_ O _ _ X _ _ |. Because 1 can appears in 1st and 2nd group
+    /// </remarks>
     public class PartiallyFillGroupsMethod : MethodBase
     {
-        public PartiallyFillGroupsMethod(ICellsService cellsService)
-            : base(cellsService) { }
+        private readonly IEnumerable<IGroupMethod> _groupMethods;
+
+        public PartiallyFillGroupsMethod(ICellsService cellsService, IEnumerable<IGroupMethod> groupMethods)
+            : base(cellsService)
+        {
+            _groupMethods = groupMethods;
+        }
 
         public override void Execute(Puzzle puzzle)
         {
@@ -25,9 +37,35 @@ namespace NonogramSolver.Core.Services.Methods
                     continue;
                 }
 
+                var numberIndex = 0;
+                foreach (var number in unresolvedNumbers)
+                {
+                    number.NumberIndex = numberIndex;
+                    numberIndex++;
+                }
+
                 var variants = GetPossibleLineVariants(groups, unresolvedNumbers);
 
-                //todo: get common numbers for all groups
+                var numberIndexes = unresolvedNumbers.Select((_, i) => i);
+
+                foreach (var index in numberIndexes)
+                {
+                    var groupsWithNumber = variants
+                            .SelectMany(x => x.Variants)
+                            .Where(x => x.NumbersIndexes.Contains(index));
+
+                    var groupIndexes = groupsWithNumber.Select(x => x.GroupIndex).Distinct().ToList();
+
+                    if (groupIndexes.Count() != 1)
+                    {
+                        continue;
+                    }
+
+                    foreach (var groupMethod in _groupMethods)
+                    {
+                        groupMethod.ProcessGroup(groups[groupIndexes.FirstOrDefault()], unresolvedNumbers[index]);
+                    }
+                }
             }
         }
 
@@ -44,8 +82,7 @@ namespace NonogramSolver.Core.Services.Methods
             return result.Where(x=>x.IsValid(numbers, groups)).ToList();
         }
 
-        private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex,
-            int numberOffset = 0)
+        private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex)
         {
             var resultLineVariants = new List<LineVariant>();
             
@@ -60,7 +97,7 @@ namespace NonogramSolver.Core.Services.Methods
                 var groupVariant = new GroupVariant
                 {
                     GroupIndex = currentGroupIndex,
-                    NumbersIndexes = numbers.Take(numbers.Count-j).Select((_, i) => i+numberOffset).ToList()
+                    NumbersIndexes = numbers.Take(numbers.Count-j).Select(x=>x.NumberIndex).ToList()
                 };
 
                 if (j == 0)
@@ -78,13 +115,13 @@ namespace NonogramSolver.Core.Services.Methods
                 var nextGroupIndex = currentGroupIndex + 1;
 
                 var variantsWithoutSkippingGroups = GetLineVariants(groupsCount,
-                    numbers.TakeLast(j).ToList(), nextGroupIndex, numbers.Count-j);
+                    numbers.TakeLast(j).ToList(), nextGroupIndex);
 
                 var variantsWithSkippingGroups = new List<List<LineVariant>>();
 
                 for (int i = nextGroupIndex+1; i < groupsCount; i++)
                 {
-                    var lineVariantWithSkipp = GetLineVariants(groupsCount, numbers.TakeLast(j).ToList(), i, numbers.Count - j);
+                    var lineVariantWithSkipp = GetLineVariants(groupsCount, numbers.TakeLast(j).ToList(), i);
                     variantsWithSkippingGroups.Add(lineVariantWithSkipp);
                 }
 
@@ -127,7 +164,6 @@ namespace NonogramSolver.Core.Services.Methods
         
         private bool GroupCanContainsNumbers(Group group, List<LineNumber> numbers)
         {
-            //todo: repeat
             var numbersLengthWithSpaces = numbers.Sum(x => x.Number) + numbers.Count - 1;
 
             return group.Cells.Count >= numbersLengthWithSpaces;

@@ -13,7 +13,7 @@ namespace NonogramSolver.Core.Services.Methods
     /// <remarks>
     /// I.e. 2 2 |O X _ _ _ X O| => 2 2 |O X X O X X O|
     /// </remarks>
-    public class ResolveEdgeNumbersMethod : MethodBase
+    public class ResolveEdgeNumbersMethod : MethodBase, IGroupMethod
     {
         public ResolveEdgeNumbersMethod(ICellsService cellsService)
             : base(cellsService) { }
@@ -73,6 +73,12 @@ namespace NonogramSolver.Core.Services.Methods
             {
                 cells.Reverse();
             }
+        }
+
+        public void ProcessGroup(Group group, LineNumber number)
+        {
+            CheckAndFillEdgeNumbers(group.Cells, number, true);
+            CheckAndFillEdgeNumbers(group.Cells, number, false);
         }
     }
 }

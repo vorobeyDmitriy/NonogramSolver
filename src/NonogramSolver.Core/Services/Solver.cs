@@ -25,7 +25,12 @@ namespace NonogramSolver.Core.Services
             _trivialLinesMethod = new ResolveTrivialLinesMethod(_cellsService);
             _edgeNumbersMethod = new ResolveEdgeNumbersMethod(_cellsService);
             _partiallyNumbersMethod = new PartiallyFillNumberMethod(_cellsService);
-            _partiallyGroupMethod = new PartiallyFillGroupsMethod(_cellsService);
+            _partiallyGroupMethod = new PartiallyFillGroupsMethod(_cellsService, new List<IGroupMethod>
+            {
+                (IGroupMethod) _partiallyNumbersMethod,
+                (IGroupMethod) _edgeNumbersMethod,
+                (IGroupMethod) _completedLines,
+            });
         }
 
         public Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,

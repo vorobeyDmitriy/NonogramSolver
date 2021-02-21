@@ -2,6 +2,7 @@
 {
     public class LineNumber
     {
+        public int NumberIndex { get; set; }
         public int Number { get; set; }
         public bool IsResolved { get; private set; }
         public int StartIndex { get; set; }
