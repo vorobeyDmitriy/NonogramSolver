@@ -41,7 +41,7 @@ namespace NonogramSolver.Core.Services.Methods
                 result.AddRange(variants);
             }
 
-            return result.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
+            return result; //.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
         }
 
         private List<LineVariant> GetLineVariants(int groupsCount, int groupIndex, List<LineNumber> numbers, int numberOffset = 0)
@@ -63,12 +63,25 @@ namespace NonogramSolver.Core.Services.Methods
 
                 if (j != 0)
                 {
-                    var otherVariants = GetLineVariants(groupsCount, groupIndex + 1, numbers.TakeLast(j).ToList(), numbers.Count-j);
+                    var nextGroupIndex = groupIndex + 1;
+                    var otherVariants = GetLineVariants(groupsCount, nextGroupIndex, numbers.TakeLast(j).ToList(), numbers.Count-j);
 
                     if (otherVariants.Any())
                     {
                         result.AddRange(otherVariants.FirstOrDefault().Variants);
-                        lineVariants.AddRange(otherVariants.Skip(1).Select(variant => new LineVariant {Variants = variant.Variants}));
+
+                        var variantsToAdd = otherVariants.Skip(1).ToList();
+                        
+                        foreach (var variant in variantsToAdd)
+                        {
+                            variant.Variants.Add(groupVariant);
+                        }
+                        
+                        lineVariants.AddRange(variantsToAdd.Skip(1).Select(variant => new LineVariant {Variants = variant.Variants}));
+                    }
+                    else
+                    {
+                        continue;
                     }
                 }
                 
@@ -83,7 +96,7 @@ namespace NonogramSolver.Core.Services.Methods
 
             return lineVariants;
         }
-
+        
         private List<LineNumber> GetGroupNumbers(Group group, List<LineNumber> numbers)
         {
             while (true)
