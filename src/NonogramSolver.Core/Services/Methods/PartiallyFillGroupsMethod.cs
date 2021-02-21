@@ -37,79 +37,95 @@ namespace NonogramSolver.Core.Services.Methods
 
             for (int i = 0; i < groups.Count; i++)
             {
-                var variants = GetLineVariants(groups.Count, i, numbers);
+                var variants = GetLineVariants(groups.Count, numbers, i);
                 result.AddRange(variants);
             }
 
-            return result; //.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
+            //todo: get only valid
+            return result;//.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
         }
 
-        private List<LineVariant> GetLineVariants(int groupsCount, int groupIndex, List<LineNumber> numbers, int numberOffset = 0)
+        private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex,
+            int numberOffset = 0)
         {
-            var lineVariants = new List<LineVariant>();
-            if (groupIndex >= groupsCount)
+            var resultLineVariants = new List<LineVariant>();
+            
+            if (currentGroupIndex >= groupsCount)
             {
                 return new List<LineVariant>();
             }
             
             for (int j = 0; j < numbers.Count; j++)
             {
-                var result = new List<GroupVariant>();
+                var groupVariants = new List<GroupVariant>();
                 var groupVariant = new GroupVariant
                 {
-                    GroupIndex = groupIndex,
+                    GroupIndex = currentGroupIndex,
                     NumbersIndexes = numbers.Take(numbers.Count-j).Select((_, i) => i+numberOffset).ToList()
                 };
 
-                if (j != 0)
+                if (j == 0)
                 {
-                    var nextGroupIndex = groupIndex + 1;
-                    var otherVariants = GetLineVariants(groupsCount, nextGroupIndex, numbers.TakeLast(j).ToList(), numbers.Count-j);
-
-                    if (otherVariants.Any())
+                    groupVariants.Add(groupVariant);
+                    resultLineVariants.Add(new LineVariant
                     {
-                        result.AddRange(otherVariants.FirstOrDefault().Variants);
+                        Variants = groupVariants
+                    });
+                    
+                    continue;
+                }
 
-                        var variantsToAdd = otherVariants.Skip(1).ToList();
-                        
-                        foreach (var variant in variantsToAdd)
-                        {
-                            variant.Variants.Add(groupVariant);
-                        }
-                        
-                        lineVariants.AddRange(variantsToAdd.Skip(1).Select(variant => new LineVariant {Variants = variant.Variants}));
-                    }
-                    else
+                
+                var nextGroupIndex = currentGroupIndex + 1;
+
+                var variantsWithoutSkippingGroups = GetLineVariants(groupsCount,
+                    numbers.TakeLast(j).ToList(), nextGroupIndex, numbers.Count-j);
+
+                var variantsWithSkippingGroups = new List<List<LineVariant>>();
+
+                for (int i = nextGroupIndex+1; i < groupsCount; i++)
+                {
+                    var lineVariantWithSkipp = GetLineVariants(groupsCount, numbers.TakeLast(j).ToList(), i, numbers.Count - j);
+                    variantsWithSkippingGroups.Add(lineVariantWithSkipp);
+                }
+
+                foreach (var variants in variantsWithSkippingGroups)
+                {
+                    foreach (var variant in variants)
                     {
-                        continue;
+                        variant.Variants.Add(groupVariant);
                     }
                 }
                 
-                result.Add(groupVariant);
-
-                var lineVariant = new LineVariant
+                resultLineVariants.AddRange(variantsWithSkippingGroups.SelectMany(x=>x));
+                
+                if (!variantsWithoutSkippingGroups.Any())
                 {
-                    Variants = result
-                };
-                lineVariants.Add(lineVariant);
+                    continue;
+                }
+                
+                groupVariants.AddRange(variantsWithoutSkippingGroups.FirstOrDefault().Variants);
+
+                var variantsToAdd = variantsWithoutSkippingGroups.Skip(1).ToList();
+                
+                foreach (var variant in variantsToAdd)
+                {
+                    variant.Variants.Add(groupVariant);
+                }
+                
+                resultLineVariants.AddRange(variantsToAdd.Select(variant => new LineVariant {Variants = variant.Variants}));
+                
+                groupVariants.Add(groupVariant);
+
+                resultLineVariants.Add(new LineVariant
+                {
+                    Variants = groupVariants
+                });
             }
 
-            return lineVariants;
+            return resultLineVariants;
         }
         
-        private List<LineNumber> GetGroupNumbers(Group group, List<LineNumber> numbers)
-        {
-            while (true)
-            {
-                if (GroupCanContainsNumbers(group, numbers))
-                {
-                    return numbers.Select(x => x).ToList();
-                }
-
-                numbers = numbers.Take(numbers.Count - 1).ToList();
-            }
-        }
-
         private bool GroupCanContainsNumbers(Group group, List<LineNumber> numbers)
         {
             //todo: repeat
