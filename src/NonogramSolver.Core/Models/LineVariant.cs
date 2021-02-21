@@ -11,14 +11,7 @@ namespace NonogramSolver.Core.Models
         {
             var allVariantsPossible = Variants.All(x => x.IsValid(numbers, groups));
 
-            if (!allVariantsPossible)
-            {
-                return false;
-            }
-
-            var numberIndexes = Variants.SelectMany(x => x.NumbersIndexes).ToList();
-            
-            return IsSequenceValid(numberIndexes);
+            return allVariantsPossible;
         }
 
         private static bool IsSequenceValid(IReadOnlyCollection<int> sequence)

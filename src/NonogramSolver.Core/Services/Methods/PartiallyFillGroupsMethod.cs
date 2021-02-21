@@ -41,7 +41,6 @@ namespace NonogramSolver.Core.Services.Methods
                 result.AddRange(variants);
             }
 
-            //todo: fix validation
             return result.Where(x=>x.IsValid(numbers, groups)).ToList();
         }
 
