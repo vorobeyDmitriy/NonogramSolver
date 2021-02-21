@@ -7,22 +7,26 @@ namespace NonogramSolver.Core.Models
     {
         public List<GroupVariant> Variants { get; set; }
         
-        public bool IsValid(List<int> numbers, List<Group> groups)
+        public bool IsValid(List<LineNumber> numbers, List<Group> groups)
         {
-            foreach (var variant in Variants)
-            {
-                var group = groups[variant.GroupIndex];
-                var groupNumbers = numbers.Where((_, index) => variant.NumbersIndexes.Contains(index));
-                
-                var numbersLengthWithSpaces = groupNumbers.Sum(x => x) + numbers.Count - 1;
+            var allVariantsPossible = Variants.All(x => x.IsValid(numbers, groups));
 
-                if (group.Cells.Count < numbersLengthWithSpaces)
-                {
-                    return false;
-                }
+            if (!allVariantsPossible)
+            {
+                return false;
             }
+
+            var numberIndexes = Variants.SelectMany(x => x.NumbersIndexes).ToList();
             
-            return true;
+            return IsSequenceValid(numberIndexes);
+        }
+
+        private static bool IsSequenceValid(IReadOnlyCollection<int> sequence)
+        {
+            var orderedSequence = sequence.OrderBy(x => x);
+            var result = orderedSequence.Select((x, i) => x == i).All(x=>x);
+
+            return result;
         }
     }
 }

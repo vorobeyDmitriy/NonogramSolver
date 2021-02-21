@@ -433,11 +433,11 @@ namespace NonogramSolver
                     },
                     new LineNumber
                     {
-                        Number = 1
+                        Number = 2
                     },
                     new LineNumber
                     {
-                        Number = 1
+                        Number = 2
                     },
                 },
             };

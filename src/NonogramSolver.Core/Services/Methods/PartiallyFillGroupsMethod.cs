@@ -41,8 +41,8 @@ namespace NonogramSolver.Core.Services.Methods
                 result.AddRange(variants);
             }
 
-            //todo: get only valid
-            return result;//.Where(x=>x.IsValid(numbers.Select(c=>c.Number).ToList(), groups)).ToList();
+            //todo: fix validation
+            return result.Where(x=>x.IsValid(numbers, groups)).ToList();
         }
 
         private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex,
