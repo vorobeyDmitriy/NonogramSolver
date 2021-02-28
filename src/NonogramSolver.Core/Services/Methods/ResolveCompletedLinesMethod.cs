@@ -19,7 +19,8 @@ namespace NonogramSolver.Core.Services.Methods
         
         public override void Execute(Puzzle puzzle)
         {
-            foreach (var line in puzzle.GetLines().Where(x => !x.IsResolved()))
+            var lines = puzzle.GetLines();
+            foreach (var line in lines.Where(x => !x.IsResolved()))
             {
                 ResolveCells(line.Cells, line.Numbers);
             }

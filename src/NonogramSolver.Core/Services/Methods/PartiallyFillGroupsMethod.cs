@@ -32,7 +32,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                 CrossUnnecessaryGroups(groups, unresolvedNumbers);
 
-                if (groups.All(x => GroupCanContainsNumbers(x, unresolvedNumbers)))
+                if (groups.Count != 1 && groups.All(x => GroupCanContainsNumbers(x, unresolvedNumbers)))
                 {
                     continue;
                 }

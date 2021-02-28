@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NonogramSolver.Core.Enumerations;
 
 namespace NonogramSolver.Core.Models
 {
@@ -11,7 +12,7 @@ namespace NonogramSolver.Core.Models
 
         public bool IsResolved()
         {
-            return Numbers.All(x => x.IsResolved);
+            return Numbers.All(x => x.IsResolved) && Cells.All(x => x.Status != CellStatus.Empty);
         }
 
         public int GetLengthWithSpaces()
