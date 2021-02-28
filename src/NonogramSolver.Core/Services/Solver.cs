@@ -50,7 +50,6 @@ namespace NonogramSolver.Core.Services
 
             var maxIterations = MaxIterations;
 
-            //todo: fix methods (check puzzle 1)
             while (!puzzle.IsResolved() && maxIterations > 0)
             {
                 _edgeNumbersMethod.Execute(puzzle);
