@@ -56,7 +56,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                     var groupIndexes = groupsWithNumber.Select(x => x.GroupIndex).Distinct().ToList();
 
-                    if (groupIndexes.Count() != 1)
+                    if (groupIndexes.Count != 1)
                     {
                         continue;
                     }
@@ -117,21 +117,8 @@ namespace NonogramSolver.Core.Services.Methods
                 var variantsWithoutSkippingGroups = GetLineVariants(groupsCount,
                     numbers.TakeLast(j).ToList(), nextGroupIndex);
 
-                var variantsWithSkippingGroups = new List<List<LineVariant>>();
-
-                for (int i = nextGroupIndex+1; i < groupsCount; i++)
-                {
-                    var lineVariantWithSkipp = GetLineVariants(groupsCount, numbers.TakeLast(j).ToList(), i);
-                    variantsWithSkippingGroups.Add(lineVariantWithSkipp);
-                }
-
-                foreach (var variants in variantsWithSkippingGroups)
-                {
-                    foreach (var variant in variants)
-                    {
-                        variant.Variants.Add(groupVariant);
-                    }
-                }
+                var variantsWithSkippingGroups = GetVariantsWithSkippingGroup(nextGroupIndex, groupsCount, j,
+                    numbers, groupVariant);
                 
                 resultLineVariants.AddRange(variantsWithSkippingGroups.SelectMany(x=>x));
                 
@@ -160,6 +147,28 @@ namespace NonogramSolver.Core.Services.Methods
             }
 
             return resultLineVariants;
+        }
+
+        private List<List<LineVariant>> GetVariantsWithSkippingGroup(int nextGroupIndex, int groupsCount, int iteration,
+            List<LineNumber> numbers, GroupVariant currentGroupVariant)
+        {
+            var variantsWithSkippingGroups = new List<List<LineVariant>>();
+            
+            for (int i = nextGroupIndex+1; i < groupsCount; i++)
+            {
+                var lineVariantWithSkipp = GetLineVariants(groupsCount, numbers.TakeLast(iteration).ToList(), i);
+                variantsWithSkippingGroups.Add(lineVariantWithSkipp);
+            }
+
+            foreach (var variants in variantsWithSkippingGroups)
+            {
+                foreach (var variant in variants)
+                {
+                    variant.Variants.Add(currentGroupVariant);
+                }
+            }
+            
+            return variantsWithSkippingGroups;
         }
         
         private bool GroupCanContainsNumbers(Group group, List<LineNumber> numbers)
