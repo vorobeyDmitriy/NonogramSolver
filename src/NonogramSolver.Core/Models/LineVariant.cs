@@ -13,13 +13,5 @@ namespace NonogramSolver.Core.Models
 
             return allVariantsPossible;
         }
-
-        private static bool IsSequenceValid(IReadOnlyCollection<int> sequence)
-        {
-            var orderedSequence = sequence.OrderBy(x => x);
-            var result = orderedSequence.Select((x, i) => x == i).All(x=>x);
-
-            return result;
-        }
     }
 }

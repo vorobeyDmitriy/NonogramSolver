@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NonogramSolver.Core.Enumerations;
+using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 
@@ -44,42 +45,60 @@ namespace NonogramSolver.Core.Services.Methods
                     numberIndex++;
                 }
 
-                var variants = GetPossibleLineVariants(groups, unresolvedNumbers);
+                var variants = GetPossibleLineVariant(groups, unresolvedNumbers);
 
-                var numberIndexes = unresolvedNumbers.Select((_, i) => i);
-
-                foreach (var index in numberIndexes)
+                foreach (var index in variants.Variants)
                 {
-                    var groupsWithNumber = variants
-                            .SelectMany(x => x.Variants)
-                            .Where(x => x.NumbersIndexes.Contains(index));
-
-                    var groupIndexes = groupsWithNumber.Select(x => x.GroupIndex).Distinct().ToList();
-
-                    if (groupIndexes.Count != 1)
-                    {
-                        continue;
-                    }
-
+                    puzzle.Print();
                     foreach (var groupMethod in _groupMethods)
                     {
-                        groupMethod.ProcessGroup(groups[groupIndexes.FirstOrDefault()], unresolvedNumbers[index]);
+                        var numbers = unresolvedNumbers
+                                      .Where((x, i) => index.NumbersIndexes.Contains(i)).ToList();
+                        groupMethod.ProcessGroup(groups[index.GroupIndex], numbers);
                     }
                 }
             }
         }
 
-        private List<LineVariant> GetPossibleLineVariants(List<Group> groups, List<LineNumber> numbers)
+        private LineVariant GetPossibleLineVariant(List<Group> groups, List<LineNumber> numbers)
         {
-            var result = new List<LineVariant>();
+            var possibleVariants = new List<LineVariant>();
 
             for (int i = 0; i < groups.Count; i++)
             {
                 var variants = GetLineVariants(groups.Count, numbers, i);
-                result.AddRange(variants);
+                possibleVariants.AddRange(variants);
             }
 
-            return result.Where(x=>x.IsValid(numbers, groups)).ToList();
+            possibleVariants = possibleVariants.Where(x=>x.IsValid(numbers, groups)).ToList();
+            var groupedVariants = possibleVariants.SelectMany(x => x.Variants)
+                                                  .GroupBy(x => x.GroupIndex, variant => variant.NumbersIndexes)
+                                                  .Where(x => x.Count() == possibleVariants.Count)
+                                                  .ToList();
+
+            var result = new LineVariant
+            {
+                Variants = new List<GroupVariant>()
+            };
+                
+            foreach (var variant in groupedVariants)
+            {
+                var allVariantNumbers = variant.SelectMany(x => x).ToList();
+                var variantNumbers = allVariantNumbers
+                                     .GroupBy(x=>x)
+                                     .Where(x => x.Count() == possibleVariants.Count)
+                                     .SelectMany(x=>x)
+                                     .Distinct()
+                                     .ToList();
+
+                result.Variants.Add(new GroupVariant
+                {
+                    GroupIndex = variant.Key,
+                    NumbersIndexes = variantNumbers
+                }); 
+            }
+
+            return result;
         }
 
         private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex)

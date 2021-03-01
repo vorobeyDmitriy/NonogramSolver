@@ -40,9 +40,18 @@ namespace NonogramSolver.Core.Services.Methods
             CellsService.ResolveNumbers(numbers);
         }
 
-        public void ProcessGroup(Group group, LineNumber number)
+        public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
-            ResolveCells(group.Cells, new []{number});
+            var filledCellsCount = group.Cells.Count(x => x.Status == CellStatus.Filled);
+            var sumOfNumbers = numbers.Sum(x => x.Number);
+
+            if (sumOfNumbers != filledCellsCount)
+            {
+                return;
+            }
+
+            CellsService.CrossCells(group.Cells.Where(x => x.Status == CellStatus.Empty));
+            CellsService.ResolveNumbers(numbers);
         }
     }
 }

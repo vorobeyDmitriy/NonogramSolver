@@ -46,6 +46,9 @@ namespace NonogramSolver.Core.Services
         {
             _trivialLinesMethod.Execute(puzzle);
             _completedLines.Execute(puzzle);
+            // puzzle.GetLine(0, true).Cells[3].Cross();
+            // puzzle.GetLine(0, true).Cells[8].Cross();
+            puzzle.Print();
 
 
             var maxIterations = MaxIterations;

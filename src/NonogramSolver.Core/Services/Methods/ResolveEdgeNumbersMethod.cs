@@ -45,6 +45,25 @@ namespace NonogramSolver.Core.Services.Methods
             }
         }
         
+        public void ProcessGroup(Group group, List<LineNumber> numbers)
+        {
+            var firstNumber = numbers.FirstOrDefault();
+
+            if (firstNumber != null && !firstNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(group.Cells, firstNumber, false);
+
+                //continue;
+            }
+
+            var lastNumber = numbers.LastOrDefault();
+                
+            if (lastNumber != null && !lastNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(group.Cells, lastNumber, true);
+            }
+        }
+        
         private void CheckAndFillEdgeNumbers(List<Cell> cells, LineNumber edgeNumber, bool fromTheEnd)
         {
             if (fromTheEnd)
@@ -73,12 +92,6 @@ namespace NonogramSolver.Core.Services.Methods
             {
                 cells.Reverse();
             }
-        }
-
-        public void ProcessGroup(Group group, LineNumber number)
-        {
-            CheckAndFillEdgeNumbers(group.Cells, number, true);
-            CheckAndFillEdgeNumbers(group.Cells, number, false);
         }
     }
 }

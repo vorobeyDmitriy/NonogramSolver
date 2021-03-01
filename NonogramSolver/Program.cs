@@ -10,11 +10,11 @@ namespace NonogramSolver
         static void Main(string[] args)
         {
             var solver = new Solver(new CellsService());
-            var puzzle = solver.Solve(GetFirstPuzzle());
+            var puzzle = solver.Solve(GetRealPuzzle());
             puzzle.Print();
         }
 
-        private static Puzzle GetFirstPuzzle()
+        private static Puzzle GetRealPuzzle()
         {
             var verticalLines = new List<List<LineNumber>>
             {

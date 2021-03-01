@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 
@@ -52,22 +53,32 @@ namespace NonogramSolver.Core.Services.Methods
             }
         }
 
-        public void ProcessGroup(Group group, LineNumber number)
+        public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
-            var leftPosition = number.Number - 1;
+            var numbersCount = numbers.Count;
 
-            var occupiedSpaceFromRight = number.Number;
-
-            var rightPosition = group.Cells.Count - occupiedSpaceFromRight;
-
-            if (rightPosition > leftPosition)
+            for (var i = 0; i < numbersCount; i++)
             {
-                return;
-            }
+                var leftPosition = numbers.Take(i + 1).Sum(x => x.Number) + i - 1;
 
-            for (var j = rightPosition; j <= leftPosition; j++)
-            {
-                group.Cells[j].Fill();
+                numbers.Reverse();
+
+                var occupiedSpaceFromRight =
+                    numbers.Take(numbersCount - i).Sum(x => x.Number) + numbersCount - 2 - i;
+
+                numbers.Reverse();
+
+                var rightPosition = group.Cells.Count - 1 - occupiedSpaceFromRight;
+
+                if (rightPosition > leftPosition)
+                {
+                    continue;
+                }
+
+                for (var j = rightPosition; j <= leftPosition; j++)
+                {
+                    group.Cells[j].Fill();
+                }
             }
         }
     }
