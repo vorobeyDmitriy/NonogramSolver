@@ -48,17 +48,17 @@ namespace NonogramSolver.Core.Services
 
         public Puzzle Solve(Puzzle puzzle)
         {
-            _trivialLinesMethod.Execute(puzzle);
-            _completedLines.Execute(puzzle);
+            _trivialLinesMethod.ProcessPuzzle(puzzle);
+            _completedLines.ProcessPuzzle(puzzle);
 
 
             var maxIterations = MaxIterations;
 
             while (!puzzle.IsResolved() && maxIterations > 0)
             {
-                _edgeNumbersMethod.Execute(puzzle);
-                _partiallyNumbersMethod.Execute(puzzle);
-                _partiallyGroupMethod.Execute(puzzle);
+                _edgeNumbersMethod.ProcessPuzzle(puzzle);
+                _partiallyNumbersMethod.ProcessPuzzle(puzzle);
+                _partiallyGroupMethod.ProcessPuzzle(puzzle);
 
                 maxIterations--;
             }

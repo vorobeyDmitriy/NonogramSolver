@@ -27,13 +27,13 @@ namespace NonogramSolver.Core.Services.Methods
             _iterationMethods = iterationMethods;
         }
 
-        public override void Execute(Puzzle puzzle)
+        public override void ProcessPuzzle(Puzzle puzzle)
         {
             foreach (var line in puzzle.GetLines().Where(x => !x.IsResolved()))
             {
                 foreach (var method in _iterationMethods)
                 {
-                    method.CompleteLine(line);
+                    method.ProcessLine(line);
                 }
 
                 var groups = GetLineEmptyCellsGroups(line);
@@ -70,7 +70,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                 foreach (var method in _iterationMethods)
                 {
-                    method.CompleteLine(line);
+                    method.ProcessLine(line);
                 }
             }
         }

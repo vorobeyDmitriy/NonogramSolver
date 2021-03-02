@@ -17,7 +17,7 @@ namespace NonogramSolver.Core.Services.Methods
         public ResolveCompletedLinesMethod(ICellsService cellsService)
             : base(cellsService) { }
         
-        public override void Execute(Puzzle puzzle)
+        public override void ProcessPuzzle(Puzzle puzzle)
         {
             var lines = puzzle.GetLines();
             foreach (var line in lines.Where(x => !x.IsResolved()))
@@ -54,7 +54,7 @@ namespace NonogramSolver.Core.Services.Methods
             CellsService.ResolveNumbers(numbers);
         }
 
-        public void CompleteLine(Line line)
+        public void ProcessLine(Line line)
         {
             var filledCellsCount = line.Cells.Count(x => x.Status == CellStatus.Filled);
             var sumOfNumbers = line.Numbers.Sum(x => x.Number);

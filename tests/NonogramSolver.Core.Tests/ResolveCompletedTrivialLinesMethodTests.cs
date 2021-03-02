@@ -19,7 +19,7 @@ namespace NonogramSolver.Core.Tests
             var puzzle = DataGenerator.GetPuzzleWithTrivialLines();
             const int expectedTrivialLines = 5;
 
-            method.Execute(puzzle);
+            method.ProcessPuzzle(puzzle);
 
             var resolverTrivialLines = puzzle.GetLines().Count(x => x.IsResolved());
             Assert.AreEqual(expectedTrivialLines, resolverTrivialLines);
@@ -32,7 +32,7 @@ namespace NonogramSolver.Core.Tests
             var puzzle = DataGenerator.GetPuzzleWithTrivialLines();
             const int expectedCellsFilled = 13;
 
-            method.Execute(puzzle);
+            method.ProcessPuzzle(puzzle);
 
             var filledCells = puzzle
                               .GetLines(false)

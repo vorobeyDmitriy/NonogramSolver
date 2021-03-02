@@ -4,6 +4,6 @@ namespace NonogramSolver.Core.Interfaces
 {
     public interface IIterationMethod
     {
-        public void CompleteLine(Line line);
+        public void ProcessLine(Line line);
     }
 }

@@ -18,7 +18,7 @@ namespace NonogramSolver.Core.Services.Methods
         public ResolveEdgeNumbersMethod(ICellsService cellsService)
             : base(cellsService) { }
 
-        public override void Execute(Puzzle puzzle)
+        public override void ProcessPuzzle(Puzzle puzzle)
         {
             foreach (var line in puzzle.GetLines())
             {
@@ -42,6 +42,28 @@ namespace NonogramSolver.Core.Services.Methods
                 {
                     CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
                 }
+            }
+        }
+        
+        public void ProcessLine(Line line)
+        {
+            if (line.IsResolved())
+            {
+                return;
+            }
+
+            var firstNumber = line.Numbers.FirstOrDefault();
+
+            if (firstNumber != null && !firstNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
+            }
+
+            var lastNumber = line.Numbers.LastOrDefault();
+                
+            if (lastNumber != null && !lastNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
             }
         }
         
@@ -98,28 +120,6 @@ namespace NonogramSolver.Core.Services.Methods
             if (fromTheEnd)
             {
                 cells.Reverse();
-            }
-        }
-
-        public void CompleteLine(Line line)
-        {
-            if (line.IsResolved())
-            {
-                return;
-            }
-
-            var firstNumber = line.Numbers.FirstOrDefault();
-
-            if (firstNumber != null && !firstNumber.IsResolved)
-            {
-                CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
-            }
-
-            var lastNumber = line.Numbers.LastOrDefault();
-                
-            if (lastNumber != null && !lastNumber.IsResolved)
-            {
-                CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
             }
         }
     }

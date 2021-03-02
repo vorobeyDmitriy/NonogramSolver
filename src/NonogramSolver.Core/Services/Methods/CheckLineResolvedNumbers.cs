@@ -11,7 +11,7 @@ namespace NonogramSolver.Core.Services.Methods
         public CheckLineResolvedNumbers(ICellsService cellsService)
             : base(cellsService) { }
         
-        public void CompleteLine(Line line)
+        public void ProcessLine(Line line)
         {
             CheckAndResolveNumbers(line, false);
             CheckAndResolveNumbers(line, true);
@@ -104,7 +104,7 @@ namespace NonogramSolver.Core.Services.Methods
         }
 
 
-        public override void Execute(Puzzle puzzle)
+        public override void ProcessPuzzle(Puzzle puzzle)
         {
             throw new System.NotImplementedException();
         }

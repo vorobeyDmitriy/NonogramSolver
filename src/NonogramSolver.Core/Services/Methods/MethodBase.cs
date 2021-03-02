@@ -12,6 +12,6 @@ namespace NonogramSolver.Core.Services.Methods
             CellsService = cellsService;
         }
         
-        public abstract void Execute(Puzzle puzzle);
+        public abstract void ProcessPuzzle(Puzzle puzzle);
     }
 }

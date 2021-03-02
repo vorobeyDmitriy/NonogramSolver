@@ -4,6 +4,6 @@ namespace NonogramSolver.Core.Interfaces
 {
     public interface IMethod
     {
-        void Execute(Puzzle puzzle);
+        void ProcessPuzzle(Puzzle puzzle);
     }
 }

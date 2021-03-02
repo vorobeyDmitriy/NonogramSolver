@@ -16,7 +16,7 @@ namespace NonogramSolver.Core.Services.Methods
         public ResolveTrivialLinesMethod(ICellsService cellsService)
             : base(cellsService) { }
 
-        public override void Execute(Puzzle puzzle)
+        public override void ProcessPuzzle(Puzzle puzzle)
         {
             foreach (var line in puzzle.GetLines())
             {
