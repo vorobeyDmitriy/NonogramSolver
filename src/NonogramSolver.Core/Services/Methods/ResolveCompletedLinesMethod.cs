@@ -22,8 +22,13 @@ namespace NonogramSolver.Core.Services.Methods
             var lines = puzzle.GetLines();
             foreach (var line in lines.Where(x => !x.IsResolved()))
             {
-                ResolveCells(line.Cells, line.Numbers);
+                ProcessLine(line);
             }
+        }
+        
+        public void ProcessLine(Line line)
+        {
+            ResolveCells(line.Cells, line.Numbers);
         }
 
         private void ResolveCells(IReadOnlyCollection<Cell> cells, IReadOnlyCollection<LineNumber> numbers)
@@ -40,18 +45,6 @@ namespace NonogramSolver.Core.Services.Methods
             CellsService.ResolveNumbers(numbers);
         }
 
-        public void ProcessLine(Line line)
-        {
-            var filledCellsCount = line.Cells.Count(x => x.Status == CellStatus.Filled);
-            var sumOfNumbers = line.Numbers.Sum(x => x.Number);
-
-            if (sumOfNumbers != filledCellsCount)
-            {
-                return;
-            }
-
-            CellsService.CrossCells(line.Cells.Where(x => x.Status == CellStatus.Empty));
-            CellsService.ResolveNumbers(line.Numbers);
-        }
+        
     }
 }
