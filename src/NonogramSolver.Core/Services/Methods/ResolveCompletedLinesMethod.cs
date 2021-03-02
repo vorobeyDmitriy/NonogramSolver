@@ -19,8 +19,8 @@ namespace NonogramSolver.Core.Services.Methods
         
         public override void ProcessPuzzle(Puzzle puzzle)
         {
-            var lines = puzzle.GetLines();
-            foreach (var line in lines.Where(x => !x.IsResolved()))
+            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
+            foreach (var line in lines)
             {
                 ProcessLine(line);
             }

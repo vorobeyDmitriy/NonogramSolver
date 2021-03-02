@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
@@ -18,42 +19,30 @@ namespace NonogramSolver.Core.Services.Methods
 
         public override void ProcessPuzzle(Puzzle puzzle)
         {
-            foreach (var line in puzzle.GetLines())
+            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
+            foreach (var line in lines)
             {
-                if (line.IsResolved())
-                {
-                    continue;
-                }
-
-                var numbersCount = line.Numbers.Count;
-
-                for (var i = 0; i < numbersCount; i++)
-                {
-                    var leftPosition = line.Numbers.Take(i + 1).Sum(x => x.Number) + i - 1;
-
-                    line.Numbers.Reverse();
-
-                    var occupiedSpaceFromRight =
-                        line.Numbers.Take(numbersCount - i).Sum(x => x.Number) + numbersCount - 2 - i;
-
-                    line.Numbers.Reverse();
-
-                    var rightPosition = line.Cells.Count - 1 - occupiedSpaceFromRight;
-
-                    if (rightPosition > leftPosition)
-                    {
-                        continue;
-                    }
-
-                    for (var j = rightPosition; j <= leftPosition; j++)
-                    {
-                        line.Cells[j].Fill();
-                    }
-                }
+                ProcessLine(line);
             }
         }
 
+        public void ProcessLine(Line line)
+        {
+            if (line.IsResolved())
+            {
+                return;
+            }
+
+            ProcessCells(line.Cells, line.Numbers);
+
+        }
+        
         public void ProcessGroup(Group group, List<LineNumber> numbers)
+        {
+            ProcessCells(group.Cells, numbers);
+        }
+
+        private static void ProcessCells(IReadOnlyList<Cell> cells, List<LineNumber> numbers)
         {
             var numbersCount = numbers.Count;
 
@@ -68,7 +57,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                 numbers.Reverse();
 
-                var rightPosition = group.Cells.Count - 1 - occupiedSpaceFromRight;
+                var rightPosition = cells.Count - 1 - occupiedSpaceFromRight;
 
                 if (rightPosition > leftPosition)
                 {
@@ -77,41 +66,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                 for (var j = rightPosition; j <= leftPosition; j++)
                 {
-                    group.Cells[j].Fill();
-                }
-            }
-        }
-
-        public void ProcessLine(Line line)
-        {
-            if (line.IsResolved())
-            {
-                return;
-            }
-
-            var numbersCount = line.Numbers.Count;
-
-            for (var i = 0; i < numbersCount; i++)
-            {
-                var leftPosition = line.Numbers.Take(i + 1).Sum(x => x.Number) + i - 1;
-
-                line.Numbers.Reverse();
-
-                var occupiedSpaceFromRight =
-                    line.Numbers.Take(numbersCount - i).Sum(x => x.Number) + numbersCount - 2 - i;
-
-                line.Numbers.Reverse();
-
-                var rightPosition = line.Cells.Count - 1 - occupiedSpaceFromRight;
-
-                if (rightPosition > leftPosition)
-                {
-                    continue;
-                }
-
-                for (var j = rightPosition; j <= leftPosition; j++)
-                {
-                    line.Cells[j].Fill();
+                    cells[j].Fill();
                 }
             }
         }

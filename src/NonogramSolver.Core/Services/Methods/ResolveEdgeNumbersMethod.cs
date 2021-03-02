@@ -20,7 +20,8 @@ namespace NonogramSolver.Core.Services.Methods
 
         public override void ProcessPuzzle(Puzzle puzzle)
         {
-            foreach (var line in puzzle.GetLines())
+            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
+            foreach (var line in lines)
             {
                 ProcessLine(line);
             }

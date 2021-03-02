@@ -18,7 +18,8 @@ namespace NonogramSolver.Core.Services.Methods
 
         public override void ProcessPuzzle(Puzzle puzzle)
         {
-            foreach (var line in puzzle.GetLines())
+            var lines = puzzle.GetLines();
+            foreach (var line in lines)
             {
                 if (line.GetLengthWithSpaces() != line.Cells.Count)
                 {
