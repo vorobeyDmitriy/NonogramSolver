@@ -35,8 +35,7 @@ namespace NonogramSolver.Core.Services.Methods
                 {
                     method.ProcessLine(line);
                 }
-                puzzle.Print();
-
+                
                 var groups = GetLineEmptyCellsGroups(line);
                 var unresolvedNumbers = line.Numbers.Where(x => !x.IsResolved).ToList();
 
