@@ -10,7 +10,6 @@ namespace NonogramSolver.Core.Services
     {
         private const int MaxIterations = 1000;
 
-        private readonly ICellsService _cellsService;
         private readonly IMethod _completedLines;
         private readonly IMethod _trivialLinesMethod;
         private readonly IMethod _edgeNumbersMethod;
@@ -19,13 +18,12 @@ namespace NonogramSolver.Core.Services
         
         public Solver(ICellsService cellsService)
         {
-            _cellsService = cellsService;
-            _completedLines = new ResolveCompletedLinesMethod(_cellsService);
-            _trivialLinesMethod = new ResolveTrivialLinesMethod(_cellsService);
-            _edgeNumbersMethod = new ResolveEdgeNumbersMethod(_cellsService);
-            _partiallyNumbersMethod = new PartiallyFillNumberMethod(_cellsService);
-            var resolveNumbersMethod = new CheckLineResolvedNumbers(_cellsService);
-            _partiallyGroupMethod = new PartiallyFillGroupsMethod(_cellsService, new List<IGroupMethod>
+            _completedLines = new ResolveCompletedLinesMethod(cellsService);
+            _trivialLinesMethod = new ResolveTrivialLinesMethod(cellsService);
+            _edgeNumbersMethod = new ResolveEdgeNumbersMethod(cellsService);
+            _partiallyNumbersMethod = new PartiallyFillNumberMethod(cellsService);
+            var resolveNumbersMethod = new CheckLineResolvedNumbers(cellsService);
+            _partiallyGroupMethod = new PartiallyFillGroupsMethod(cellsService, new List<IGroupMethod>
             {
                 (IGroupMethod) _completedLines,
                 (IGroupMethod) _partiallyNumbersMethod,
