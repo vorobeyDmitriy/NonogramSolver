@@ -20,9 +20,7 @@ namespace NonogramSolver.Core.Services.Methods
         {
             foreach (var line in puzzle.GetLines())
             {
-                var maxLineNumbersLength = line.IsRow ? puzzle.Columns : puzzle.Rows;
-
-                if (line.GetLengthWithSpaces() != maxLineNumbersLength)
+                if (line.GetLengthWithSpaces() != line.Cells.Count)
                 {
                     continue;
                 }
