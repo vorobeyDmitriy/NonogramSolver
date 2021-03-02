@@ -13,7 +13,7 @@ namespace NonogramSolver.Core.Services.Methods
     /// <remarks>
     /// I.e. 2 2 |O X _ _ _ X O| => 2 2 |O X X O X X O|
     /// </remarks>
-    public class ResolveEdgeNumbersMethod : MethodBase, IGroupMethod
+    public class ResolveEdgeNumbersMethod : MethodBase, IGroupMethod, IIterationMethod
     {
         public ResolveEdgeNumbersMethod(ICellsService cellsService)
             : base(cellsService) { }
@@ -31,7 +31,7 @@ namespace NonogramSolver.Core.Services.Methods
 
                 if (firstNumber != null && !firstNumber.IsResolved)
                 {
-                    CheckAndFillEdgeNumbers(line.Cells, firstNumber, false);
+                    CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
 
                     continue;
                 }
@@ -40,38 +40,45 @@ namespace NonogramSolver.Core.Services.Methods
                 
                 if (lastNumber != null && !lastNumber.IsResolved)
                 {
-                    CheckAndFillEdgeNumbers(line.Cells, lastNumber, true);
+                    CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
                 }
             }
         }
         
         public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
-            var firstNumber = numbers.FirstOrDefault();
+            var firstFilledCell = group.Cells.FindIndex(x => x.Status == CellStatus.Filled);
+            var lastFilledCell = group.Cells.FindLastIndex(x => x.Status == CellStatus.Filled);
 
+            if (numbers.Count == 1 && lastFilledCell - firstFilledCell + 1 > numbers.FirstOrDefault()?.Number)
+            {
+                return;
+            }
+            
+            var firstNumber = numbers.FirstOrDefault();
+            
             if (firstNumber != null && !firstNumber.IsResolved)
             {
-                CheckAndFillEdgeNumbers(group.Cells, firstNumber, false);
-
-                //continue;
+                CheckAndFillEdgeNumbers(group.Cells, firstNumber, false, false);
             }
 
             var lastNumber = numbers.LastOrDefault();
                 
             if (lastNumber != null && !lastNumber.IsResolved)
             {
-                CheckAndFillEdgeNumbers(group.Cells, lastNumber, true);
+                CheckAndFillEdgeNumbers(group.Cells, lastNumber, true, false);
             }
         }
         
-        private void CheckAndFillEdgeNumbers(List<Cell> cells, LineNumber edgeNumber, bool fromTheEnd)
+        private void CheckAndFillEdgeNumbers(List<Cell> cells, LineNumber edgeNumber, bool fromTheEnd, bool withResolve,
+            int startIndex = 0)
         {
             if (fromTheEnd)
             {
                 cells.Reverse();
             }
 
-            for (var i = 0; i < cells.Count - 1; i++)
+            for (var i = startIndex; i < cells.Count - 1; i++)
             {
                 if (cells[i].Status == CellStatus.Empty)
                 {
@@ -83,7 +90,7 @@ namespace NonogramSolver.Core.Services.Methods
                     continue;
                 }
 
-                CellsService.FillNumber(cells, edgeNumber, i);
+                CellsService.FillNumber(cells, edgeNumber, i, withResolve);
 
                 break;
             }
@@ -91,6 +98,28 @@ namespace NonogramSolver.Core.Services.Methods
             if (fromTheEnd)
             {
                 cells.Reverse();
+            }
+        }
+
+        public void CompleteLine(Line line)
+        {
+            if (line.IsResolved())
+            {
+                return;
+            }
+
+            var firstNumber = line.Numbers.FirstOrDefault();
+
+            if (firstNumber != null && !firstNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
+            }
+
+            var lastNumber = line.Numbers.LastOrDefault();
+                
+            if (lastNumber != null && !lastNumber.IsResolved)
+            {
+                CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
             }
         }
     }

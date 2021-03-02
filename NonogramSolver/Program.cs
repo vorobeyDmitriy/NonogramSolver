@@ -704,5 +704,584 @@ namespace NonogramSolver
 
             return new Puzzle(1, 12, horizontalLines, verticalLines);
         }
+        
+        //resolve edge numbers
+        private static Puzzle GetFourthPuzzle()
+        {
+            var verticalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            var horizontalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 4
+                    },
+                },
+            };
+
+            return new Puzzle(1, 15, horizontalLines, verticalLines);
+        }
+        
+        //resolve edge numbers
+        private static Puzzle GetFifthPuzzle()
+        {
+            // puzzle.GetLine(0, true).Cells[8].Fill();
+            // puzzle.GetLine(0, true).Cells[9].Cross();
+            // puzzle.GetLine(0, true).Cells[13].Cross();
+            // puzzle.GetLine(0, true).Cells[14].Fill();
+            // puzzle.HorizontalNumbers.LastOrDefault().LastOrDefault().Resolve();
+            var verticalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            var horizontalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            return new Puzzle(1, 15, horizontalLines, verticalLines);
+        }
+        
+        //resolve edge numbers
+        //1 4 2 1
+        private static Puzzle GetSixPuzzle()
+        {
+            // puzzle.GetLine(0, true).Cells[5].Fill();
+            // puzzle.GetLine(0, true).Cells[6].Fill();
+            // puzzle.GetLine(0, true).Cells[7].Fill();
+            // puzzle.GetLine(0, true).Cells[8].Fill();
+            // puzzle.GetLine(0, true).Cells[9].Cross();
+            // puzzle.GetLine(0, true).Cells[10].Fill();
+            // puzzle.GetLine(0, true).Cells[11].Fill();
+            // puzzle.GetLine(0, true).Cells[12].Cross();
+            // puzzle.GetLine(0, true).Cells[13].Cross();
+            // puzzle.GetLine(0, true).Cells[14].Fill();
+            // puzzle.HorizontalNumbers.LastOrDefault().LastOrDefault().Resolve();
+            var verticalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            var horizontalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 4
+                    },
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            return new Puzzle(1, 15, horizontalLines, verticalLines);
+        }
+        
+        //resolve edge numbers
+        //5 1 1 1
+        private static Puzzle GetSeventhPuzzle()
+        {
+            // puzzle.GetLine(0, true).Cells[0].Cross();
+            // puzzle.GetLine(0, true).Cells[1].Cross();
+            // puzzle.GetLine(0, true).Cells[2].Fill();
+            // puzzle.GetLine(0, true).Cells[3].Fill();
+            // puzzle.GetLine(0, true).Cells[4].Fill();
+            // puzzle.GetLine(0, true).Cells[5].Fill();
+            // puzzle.GetLine(0, true).Cells[6].Fill();
+            // puzzle.GetLine(0, true).Cells[7].Cross();
+            // puzzle.GetLine(0, true).Cells[9].Cross();
+            // puzzle.GetLine(0, true).Cells[10].Fill();
+            // puzzle.GetLine(0, true).Cells[11].Cross();
+            // puzzle.GetLine(0, true).Cells[13].Cross();
+            // puzzle.HorizontalNumbers.LastOrDefault().FirstOrDefault().Resolve();
+            var verticalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 0
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    }
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            var horizontalLines = new List<List<LineNumber>>
+            {
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+            };
+
+            return new Puzzle(1, 15, horizontalLines, verticalLines);
+        }
     }
 }

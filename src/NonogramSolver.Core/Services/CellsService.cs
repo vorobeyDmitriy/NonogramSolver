@@ -22,7 +22,7 @@ namespace NonogramSolver.Core.Services
             }
         }
 
-        public void FillNumber(List<Cell> cells, LineNumber number, int startIndex)
+        public void FillNumber(List<Cell> cells, LineNumber number, int startIndex, bool withResolve = true)
         {
             for (var i = startIndex; i < startIndex + number.Number; i++)
             {
@@ -36,7 +36,10 @@ namespace NonogramSolver.Core.Services
                 cells[lastCrossIndex].Cross();
             }
 
-            number.Resolve(startIndex, startIndex + number.Number - 1);
+            if (withResolve)
+            {
+                number.Resolve(startIndex, startIndex + number.Number - 1);
+            }
         }
 
         public void ResolveNumbers(IEnumerable<LineNumber> numbers)

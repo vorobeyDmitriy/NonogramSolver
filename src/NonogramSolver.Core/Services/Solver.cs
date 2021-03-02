@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NonogramSolver.Core.Enumerations;
 using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
@@ -25,11 +24,19 @@ namespace NonogramSolver.Core.Services
             _trivialLinesMethod = new ResolveTrivialLinesMethod(_cellsService);
             _edgeNumbersMethod = new ResolveEdgeNumbersMethod(_cellsService);
             _partiallyNumbersMethod = new PartiallyFillNumberMethod(_cellsService);
+            var resolveNumbersMethod = new CheckLineResolvedNumbers(_cellsService);
             _partiallyGroupMethod = new PartiallyFillGroupsMethod(_cellsService, new List<IGroupMethod>
             {
+                (IGroupMethod) _completedLines,
                 (IGroupMethod) _partiallyNumbersMethod,
                 (IGroupMethod) _edgeNumbersMethod,
-                (IGroupMethod) _completedLines,
+            }, new List<IIterationMethod>
+            {
+                resolveNumbersMethod,
+                (IIterationMethod) _completedLines,
+                (IIterationMethod) _partiallyNumbersMethod,
+                (IIterationMethod) _edgeNumbersMethod,
+                (IIterationMethod) _edgeNumbersMethod,
             });
         }
 
@@ -46,8 +53,6 @@ namespace NonogramSolver.Core.Services
         {
             _trivialLinesMethod.Execute(puzzle);
             _completedLines.Execute(puzzle);
-            // puzzle.GetLine(0, true).Cells[3].Cross();
-            // puzzle.GetLine(0, true).Cells[8].Cross();
             puzzle.Print();
 
 
@@ -57,7 +62,6 @@ namespace NonogramSolver.Core.Services
             {
                 _edgeNumbersMethod.Execute(puzzle);
                 _partiallyNumbersMethod.Execute(puzzle);
-                _completedLines.Execute(puzzle);
                 _partiallyGroupMethod.Execute(puzzle);
                 puzzle.Print();
 
