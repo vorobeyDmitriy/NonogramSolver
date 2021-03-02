@@ -17,6 +17,8 @@ namespace NonogramSolver.Core.Services.Methods
             CheckAndResolveNumbers(line, true);
         }
 
+        
+        //todo: merge with ResolveEdgeNumbersMethod
         private void CheckAndResolveNumbers(Line line, bool fromTheEnd)
         {
             if (fromTheEnd)
@@ -84,26 +86,6 @@ namespace NonogramSolver.Core.Services.Methods
             return length;
         }
         
-        private int GetLength(IReadOnlyList<Cell> cells, int startIndex, CellStatus status)
-        {
-            var length = 0;
-            
-            for (var j = startIndex; j < cells.Count - 1; j++)
-            {
-                if (cells[j].Status == status)
-                {
-                    length++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return length;
-        }
-
-
         public override void ProcessPuzzle(Puzzle puzzle)
         {
             throw new System.NotImplementedException();
