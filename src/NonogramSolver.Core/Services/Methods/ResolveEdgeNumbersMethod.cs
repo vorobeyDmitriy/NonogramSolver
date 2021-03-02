@@ -22,24 +22,7 @@ namespace NonogramSolver.Core.Services.Methods
         {
             foreach (var line in puzzle.GetLines())
             {
-                if (line.IsResolved())
-                {
-                    continue;
-                }
-
-                var firstNumber = line.Numbers.FirstOrDefault();
-
-                if (firstNumber != null && !firstNumber.IsResolved)
-                {
-                    CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
-                }
-
-                var lastNumber = line.Numbers.LastOrDefault();
-                
-                if (lastNumber != null && !lastNumber.IsResolved)
-                {
-                    CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
-                }
+                ProcessLine(line);
             }
         }
         
@@ -50,19 +33,7 @@ namespace NonogramSolver.Core.Services.Methods
                 return;
             }
 
-            var firstNumber = line.Numbers.FirstOrDefault();
-
-            if (firstNumber != null && !firstNumber.IsResolved)
-            {
-                CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
-            }
-
-            var lastNumber = line.Numbers.LastOrDefault();
-                
-            if (lastNumber != null && !lastNumber.IsResolved)
-            {
-                CheckAndFillEdgeNumbers(line.Cells, lastNumber, true, true);
-            }
+            ProcessCells(line.Cells, line.Numbers, true);
         }
         
         public void ProcessGroup(Group group, List<LineNumber> numbers)
@@ -74,19 +45,24 @@ namespace NonogramSolver.Core.Services.Methods
             {
                 return;
             }
-            
+
+            ProcessCells(group.Cells, numbers, false);
+        }
+
+        private void ProcessCells(List<Cell> cells, List<LineNumber> numbers, bool withResolve)
+        {
             var firstNumber = numbers.FirstOrDefault();
             
             if (firstNumber != null && !firstNumber.IsResolved)
             {
-                CheckAndFillEdgeNumbers(group.Cells, firstNumber, false, false);
+                CheckAndFillEdgeNumbers(cells, firstNumber, false, withResolve);
             }
 
             var lastNumber = numbers.LastOrDefault();
                 
             if (lastNumber != null && !lastNumber.IsResolved)
             {
-                CheckAndFillEdgeNumbers(group.Cells, lastNumber, true, false);
+                CheckAndFillEdgeNumbers(cells, lastNumber, true, withResolve);
             }
         }
         
