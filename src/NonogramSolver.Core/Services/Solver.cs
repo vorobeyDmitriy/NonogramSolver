@@ -36,7 +36,6 @@ namespace NonogramSolver.Core.Services
                 (IIterationMethod) _completedLines,
                 (IIterationMethod) _partiallyNumbersMethod,
                 (IIterationMethod) _edgeNumbersMethod,
-                (IIterationMethod) _edgeNumbersMethod,
             });
         }
 
@@ -53,7 +52,6 @@ namespace NonogramSolver.Core.Services
         {
             _trivialLinesMethod.Execute(puzzle);
             _completedLines.Execute(puzzle);
-            puzzle.Print();
 
 
             var maxIterations = MaxIterations;
@@ -63,7 +61,6 @@ namespace NonogramSolver.Core.Services
                 _edgeNumbersMethod.Execute(puzzle);
                 _partiallyNumbersMethod.Execute(puzzle);
                 _partiallyGroupMethod.Execute(puzzle);
-                puzzle.Print();
 
                 maxIterations--;
             }
