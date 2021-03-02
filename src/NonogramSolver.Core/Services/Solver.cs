@@ -25,7 +25,6 @@ namespace NonogramSolver.Core.Services
             var resolveNumbersMethod = new CheckLineResolvedNumbers(cellsService);
             _partiallyGroupMethod = new PartiallyFillGroupsMethod(cellsService, new List<IGroupMethod>
             {
-                (IGroupMethod) _completedLines,
                 (IGroupMethod) _partiallyNumbersMethod,
                 (IGroupMethod) _edgeNumbersMethod,
             }, new List<IIterationMethod>
@@ -59,7 +58,7 @@ namespace NonogramSolver.Core.Services
                 _edgeNumbersMethod.ProcessPuzzle(puzzle);
                 _partiallyNumbersMethod.ProcessPuzzle(puzzle);
                 _partiallyGroupMethod.ProcessPuzzle(puzzle);
-
+                
                 maxIterations--;
             }
 

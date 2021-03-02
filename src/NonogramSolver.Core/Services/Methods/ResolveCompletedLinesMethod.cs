@@ -12,7 +12,7 @@ namespace NonogramSolver.Core.Services.Methods
     /// <remarks>
     /// I.e. 2 1 |X X _ X _| => |X X O X O| and numbers marked as resolved
     /// </remarks>
-    public class ResolveCompletedLinesMethod : MethodBase, IGroupMethod, IIterationMethod
+    public class ResolveCompletedLinesMethod : MethodBase, IIterationMethod
     {
         public ResolveCompletedLinesMethod(ICellsService cellsService)
             : base(cellsService) { }
@@ -37,20 +37,6 @@ namespace NonogramSolver.Core.Services.Methods
             }
 
             CellsService.CrossCells(cells.Where(x => x.Status == CellStatus.Empty));
-            CellsService.ResolveNumbers(numbers);
-        }
-
-        public void ProcessGroup(Group group, List<LineNumber> numbers)
-        {
-            var filledCellsCount = group.Cells.Count(x => x.Status == CellStatus.Filled);
-            var sumOfNumbers = numbers.Sum(x => x.Number);
-
-            if (sumOfNumbers != filledCellsCount)
-            {
-                return;
-            }
-
-            CellsService.CrossCells(group.Cells.Where(x => x.Status == CellStatus.Empty));
             CellsService.ResolveNumbers(numbers);
         }
 

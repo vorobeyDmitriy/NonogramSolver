@@ -14,7 +14,6 @@ namespace NonogramSolver.Tests.Modules
             collection.AddSingleton<IMethod, ResolveEdgeNumbersMethod>();
             collection.AddSingleton<IMethod, PartiallyFillNumberMethod>();
             collection.AddSingleton<IMethod, PartiallyFillGroupsMethod>();
-            collection.AddSingleton<IGroupMethod, ResolveCompletedLinesMethod>();
             collection.AddSingleton<IGroupMethod, PartiallyFillNumberMethod>();
             collection.AddSingleton<IGroupMethod, ResolveEdgeNumbersMethod>();
             collection.AddSingleton<IIterationMethod, CheckLineResolvedNumbers>();

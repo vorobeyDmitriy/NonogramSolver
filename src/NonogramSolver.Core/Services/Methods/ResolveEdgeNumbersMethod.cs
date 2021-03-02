@@ -32,8 +32,6 @@ namespace NonogramSolver.Core.Services.Methods
                 if (firstNumber != null && !firstNumber.IsResolved)
                 {
                     CheckAndFillEdgeNumbers(line.Cells, firstNumber, false, true);
-
-                    continue;
                 }
 
                 var lastNumber = line.Numbers.LastOrDefault();
