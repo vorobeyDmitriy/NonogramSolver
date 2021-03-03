@@ -465,11 +465,11 @@ namespace NonogramSolver.Core.Tests
                 {
                     new LineNumber
                     {
-                        Number = 1
+                        Number = 2
                     },
                     new LineNumber
                     {
-                        Number = 2
+                        Number = 1
                     },
                 },
                 new()
