@@ -22,6 +22,74 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
+                        Number = 12
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
+                    new LineNumber
+                    {
+                        Number = 4
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
                         Number = 1
                     },
                     new LineNumber
@@ -35,24 +103,13 @@ namespace NonogramSolver
                     {
                         Number = 8
                     },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 3
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
                     new LineNumber
                     {
                         Number = 4
-                    },
+                    }
+                },
+                new()
+                {
                     new LineNumber
                     {
                         Number = 2
@@ -61,24 +118,17 @@ namespace NonogramSolver
                     {
                         Number = 1
                     },
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
                 },
                 new()
                 {
-                    new LineNumber
-                    {
-                        Number = 7
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
                     new LineNumber
                     {
                         Number = 1
                     },
-                },
-                new()
-                {
                     new LineNumber
                     {
                         Number = 1
@@ -87,9 +137,12 @@ namespace NonogramSolver
                     {
                         Number = 4
                     },
+                },
+                new()
+                {
                     new LineNumber
                     {
-                        Number = 2
+                        Number = 1
                     },
                     new LineNumber
                     {
@@ -98,6 +151,25 @@ namespace NonogramSolver
                 },
                 new()
                 {
+                    new LineNumber
+                    {
+                        Number = 5
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 2
+                    },
                     new LineNumber
                     {
                         Number = 4
@@ -119,30 +191,15 @@ namespace NonogramSolver
                     },
                     new LineNumber
                     {
-                        Number = 4
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 2
+                        Number = 1
                     },
                     new LineNumber
                     {
                         Number = 1
                     },
-                    new LineNumber
-                    {
-                        Number = 4
-                    },
                 },
                 new()
                 {
-                    new LineNumber
-                    {
-                        Number = 3
-                    },
                     new LineNumber
                     {
                         Number = 2
@@ -156,83 +213,7 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 4
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 8
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
+                        Number = 12
                     },
                 },
             };
@@ -258,7 +239,7 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 1
+                        Number = 3
                     },
                 },
                 new()
@@ -271,24 +252,19 @@ namespace NonogramSolver
                     {
                         Number = 2
                     },
-                },
-                new()
-                {
                     new LineNumber
                     {
-                        Number = 1
+                        Number =1
                     },
                     new LineNumber
                     {
                         Number = 2
                     },
-                },
-                new()
-                {
                     new LineNumber
                     {
-                        Number = 9
+                        Number =2
                     },
+                   
                 },
                 new()
                 {
@@ -302,15 +278,73 @@ namespace NonogramSolver
                     },
                     new LineNumber
                     {
+                        Number = 5
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
                         Number = 1
                     },
                     new LineNumber
                     {
                         Number = 1
-                    }
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
                 },
                 new()
                 {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
                     new LineNumber
                     {
                         Number = 7
@@ -323,6 +357,13 @@ namespace NonogramSolver
                     {
                         Number = 1
                     },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
                     new LineNumber
                     {
                         Number = 1
@@ -332,11 +373,81 @@ namespace NonogramSolver
                 {
                     new LineNumber
                     {
-                        Number = 15
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
                     },
                 },
                 new()
                 {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 3
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 3
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 3
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                },
+                new()
+                {
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 1
+                    },
+                    new LineNumber
+                    {
+                        Number = 3
+                    },
                     new LineNumber
                     {
                         Number = 1
@@ -358,65 +469,8 @@ namespace NonogramSolver
                     },
                     new LineNumber
                     {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
                         Number = 1
                     },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 3
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                },
-                new()
-                {
-                    new LineNumber
-                    {
-                        Number = 1
-                    },
-                    new LineNumber
-                    {
-                        Number = 2
-                    },
-                    new LineNumber
-                    {
-                        Number = 1
-                    }
                 },
                 new()
                 {

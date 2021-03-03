@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NonogramSolver.Core.Extensions;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
 using NonogramSolver.Core.Services.Methods;
