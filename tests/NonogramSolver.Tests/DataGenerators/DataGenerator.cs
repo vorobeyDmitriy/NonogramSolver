@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NonogramSolver.Core.Models;
 
-namespace NonogramSolver.Tests
+namespace NonogramSolver.Tests.DataGenerators
 {
     public static class DataGenerator
     {

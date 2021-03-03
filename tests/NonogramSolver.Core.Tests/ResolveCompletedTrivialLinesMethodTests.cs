@@ -2,6 +2,7 @@
 using NonogramSolver.Core.Enumerations;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Tests;
+using NonogramSolver.Tests.DataGenerators;
 using NonogramSolver.Tests.DependencyInjection;
 using NonogramSolver.Tests.Modules;
 using NUnit.Framework;
