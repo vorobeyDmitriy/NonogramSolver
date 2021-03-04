@@ -13,9 +13,9 @@ namespace NonogramSolver.Core.Services.Methods
     /// <remarks>
     /// I.e. 2 2 |O X _ _ _ X O| => 2 2 |O X X O X X O|
     /// </remarks>
-    public class CheckLineResolvedNumbers : MethodBase, IIterationMethod, IGroupMethod
+    public class ResolvedEdgeNumbersMethod : MethodBase, IIterationMethod, IGroupMethod
     {
-        public CheckLineResolvedNumbers(ICellsService cellsService)
+        public ResolvedEdgeNumbersMethod(ICellsService cellsService)
             : base(cellsService) { }
 
         public override void ProcessPuzzle(Puzzle puzzle)
@@ -80,7 +80,7 @@ namespace NonogramSolver.Core.Services.Methods
                     var length = GetLength(cells, i);
                     var number = numbers.Skip(numberIndex).FirstOrDefault();
 
-                    if (number.Number == length)
+                    if (number?.Number == length)
                     {
                         CellsService.FillNumber(cells, number, i, withResolve);
                         numberIndex++;
@@ -94,11 +94,13 @@ namespace NonogramSolver.Core.Services.Methods
                 }
             }
 
-            if (fromTheEnd)
+            if (!fromTheEnd)
             {
-                cells.Reverse();
-                numbers.Reverse();
+                return;
             }
+
+            cells.Reverse();
+            numbers.Reverse();
         }
 
         private static int GetLength(IReadOnlyList<Cell> cells, int startIndex)

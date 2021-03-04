@@ -19,17 +19,16 @@ namespace NonogramSolver.Core.Services
             _completedLines = new ResolveCompletedLinesMethod(cellsService);
             _trivialLinesMethod = new ResolveTrivialLinesMethod(cellsService);
             _partiallyNumbersMethod = new PartiallyFillNumberMethod(cellsService);
-            var resolveNumbersMethod = new CheckLineResolvedNumbers(cellsService);
+            var resolveNumbersMethod = new ResolvedEdgeNumbersMethod(cellsService);
             _partiallyGroupMethod = new PartiallyFillGroupsMethod(cellsService, new List<IGroupMethod>
             {
-                (IGroupMethod) _partiallyNumbersMethod,
                 resolveNumbersMethod,
+                (IGroupMethod) _partiallyNumbersMethod,
             }, new List<IIterationMethod>
             {
                 resolveNumbersMethod,
                 (IIterationMethod) _completedLines,
                 (IIterationMethod) _partiallyNumbersMethod,
-                resolveNumbersMethod,
             });
         }
 
