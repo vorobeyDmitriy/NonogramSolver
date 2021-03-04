@@ -11,7 +11,6 @@ namespace NonogramSolver.Core.Services
 
         private readonly IMethod _completedLines;
         private readonly IMethod _trivialLinesMethod;
-        private readonly IMethod _edgeNumbersMethod;
         private readonly IMethod _partiallyNumbersMethod;
         private readonly IMethod _partiallyGroupMethod;
         
@@ -19,19 +18,18 @@ namespace NonogramSolver.Core.Services
         {
             _completedLines = new ResolveCompletedLinesMethod(cellsService);
             _trivialLinesMethod = new ResolveTrivialLinesMethod(cellsService);
-            _edgeNumbersMethod = new ResolveEdgeNumbersMethod(cellsService);
             _partiallyNumbersMethod = new PartiallyFillNumberMethod(cellsService);
             var resolveNumbersMethod = new CheckLineResolvedNumbers(cellsService);
             _partiallyGroupMethod = new PartiallyFillGroupsMethod(cellsService, new List<IGroupMethod>
             {
                 (IGroupMethod) _partiallyNumbersMethod,
-                (IGroupMethod) _edgeNumbersMethod,
+                resolveNumbersMethod,
             }, new List<IIterationMethod>
             {
                 resolveNumbersMethod,
                 (IIterationMethod) _completedLines,
                 (IIterationMethod) _partiallyNumbersMethod,
-                (IIterationMethod) _edgeNumbersMethod,
+                resolveNumbersMethod,
             });
         }
 
@@ -54,7 +52,6 @@ namespace NonogramSolver.Core.Services
 
             while (!puzzle.IsResolved() && maxIterations > 0)
             {
-                _edgeNumbersMethod.ProcessPuzzle(puzzle);
                 _partiallyNumbersMethod.ProcessPuzzle(puzzle);
                 _partiallyGroupMethod.ProcessPuzzle(puzzle);
                 

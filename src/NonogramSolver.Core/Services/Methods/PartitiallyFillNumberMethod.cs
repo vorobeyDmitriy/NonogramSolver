@@ -20,6 +20,7 @@ namespace NonogramSolver.Core.Services.Methods
         public override void ProcessPuzzle(Puzzle puzzle)
         {
             var lines = puzzle.GetLines().Where(x => !x.IsResolved());
+
             foreach (var line in lines)
             {
                 ProcessLine(line);
@@ -28,15 +29,9 @@ namespace NonogramSolver.Core.Services.Methods
 
         public void ProcessLine(Line line)
         {
-            if (line.IsResolved())
-            {
-                return;
-            }
-
             ProcessCells(line.Cells, line.Numbers);
-
         }
-        
+
         public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
             ProcessCells(group.Cells, numbers);

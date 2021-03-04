@@ -11,15 +11,12 @@ namespace NonogramSolver.Tests.Modules
         {
             collection.AddSingleton<IMethod, ResolveCompletedLinesMethod>();
             collection.AddSingleton<IMethod, ResolveTrivialLinesMethod>();
-            collection.AddSingleton<IMethod, ResolveEdgeNumbersMethod>();
             collection.AddSingleton<IMethod, PartiallyFillNumberMethod>();
             collection.AddSingleton<IMethod, PartiallyFillGroupsMethod>();
             collection.AddSingleton<IGroupMethod, PartiallyFillNumberMethod>();
-            collection.AddSingleton<IGroupMethod, ResolveEdgeNumbersMethod>();
             collection.AddSingleton<IIterationMethod, CheckLineResolvedNumbers>();
             collection.AddSingleton<IIterationMethod, ResolveCompletedLinesMethod>();
             collection.AddSingleton<IIterationMethod, PartiallyFillNumberMethod>();
-            collection.AddSingleton<IIterationMethod, ResolveEdgeNumbersMethod>();
             collection.AddSingleton<ICellsService, CellsService>();
             collection.AddSingleton<ISolver, Solver>();
             base.RegisterDependencies(collection);
