@@ -7,11 +7,11 @@ using NonogramSolver.Core.Models;
 namespace NonogramSolver.Core.Services.Methods
 {
     /// <summary>
-    /// Method to split line into groups and get process all possible variants 
+    ///     Method to split line into groups and get process all possible variants
     /// </summary>
     /// <remarks>
-    /// I.e. 1 3 |_ O _ _ _ _ _| splits into two groups 1 |_| and 1 3 |_ _ _ _ _|
-    /// Result of processing is 1 3 |_ O _ _ X _ _ |. Because 1 can appears in 1st and 2nd group
+    ///     I.e. 1 3 |_ O _ _ _ _ _| splits into two groups 1 |_| and 1 3 |_ _ _ _ _|
+    ///     Result of processing is 1 3 |_ O _ _ X _ _ |. Because 1 can appears in 1st and 2nd group
     /// </remarks>
     public class PartiallyFillGroupsMethod : MethodBase
     {
@@ -32,7 +32,7 @@ namespace NonogramSolver.Core.Services.Methods
             {
                 method.ProcessLine(line);
             }
-                
+
             var groups = GetLineEmptyCellsGroups(line);
             var unresolvedNumbers = GetUnresolvedNumbers(line.Numbers);
             CrossUnnecessaryGroups(groups, unresolvedNumbers);
@@ -66,7 +66,7 @@ namespace NonogramSolver.Core.Services.Methods
         {
             var unresolvedNumbers = numbers.Where(x => !x.IsResolved).ToList();
             var numberIndex = 0;
-            
+
             foreach (var number in unresolvedNumbers)
             {
                 number.NumberIndex = numberIndex;
@@ -75,7 +75,7 @@ namespace NonogramSolver.Core.Services.Methods
 
             return unresolvedNumbers;
         }
-        
+
         private List<LineVariant> GetPossibleLineVariant(List<Group> groups, List<LineNumber> numbers)
         {
             var possibleVariants = new List<LineVariant>();
@@ -122,7 +122,8 @@ namespace NonogramSolver.Core.Services.Methods
             return result;
         }
 
-        private List<LineVariant> GetLineVariants(int groupsCount, IReadOnlyCollection<LineNumber> numbers, int currentGroupIndex)
+        private List<LineVariant> GetLineVariants(int groupsCount, IReadOnlyCollection<LineNumber> numbers,
+            int currentGroupIndex)
         {
             var resultLineVariants = new List<LineVariant>();
 
@@ -192,7 +193,8 @@ namespace NonogramSolver.Core.Services.Methods
             return resultLineVariants;
         }
 
-        private IEnumerable<List<LineVariant>> GetVariantsWithSkippingGroup(int nextGroupIndex, int groupsCount, int iteration,
+        private IEnumerable<List<LineVariant>> GetVariantsWithSkippingGroup(int nextGroupIndex, int groupsCount,
+            int iteration,
             IReadOnlyCollection<LineNumber> numbers, GroupVariant currentGroupVariant)
         {
             var variantsWithSkippingGroups = new List<List<LineVariant>>();
@@ -218,7 +220,8 @@ namespace NonogramSolver.Core.Services.Methods
             return group.Cells.Count >= numbersLengthWithSpaces;
         }
 
-        private static void CrossUnnecessaryGroups(IReadOnlyList<Group> groups, IReadOnlyCollection<LineNumber> unresolvedNumbers)
+        private static void CrossUnnecessaryGroups(IReadOnlyList<Group> groups,
+            IReadOnlyCollection<LineNumber> unresolvedNumbers)
         {
             foreach (var group in groups)
             {
@@ -286,22 +289,22 @@ namespace NonogramSolver.Core.Services.Methods
         private static List<Group> GetValidGroups(IReadOnlyCollection<Group> groups, Line line)
         {
             var emptyGroups = groups
-                                  .Where(x => x.Cells.Any(c => c.Status == CellStatus.Empty))
-                                  .ToList();
-            
+                              .Where(x => x.Cells.Any(c => c.Status == CellStatus.Empty))
+                              .ToList();
+
             var filledGroups = groups
-                                  .Where(x => x.Cells.Any(c => c.Status == CellStatus.Empty))
-                                  .ToList();
+                               .Where(x => x.Cells.Any(c => c.Status == CellStatus.Empty))
+                               .ToList();
 
             var resolvedNumbers = line.Numbers.Where(x => x.IsResolved).ToList();
-            
+
             if (groups.Count == emptyGroups.Count + resolvedNumbers.Count)
             {
                 return emptyGroups;
             }
 
             var groupedNumbers = resolvedNumbers.GroupBy(x => x.Number).ToList();
-            
+
             foreach (var groupNumber in groupedNumbers)
             {
                 var searchedGroups = filledGroups.Where(x => x.Cells.Count == groupNumber.Key);
@@ -311,7 +314,7 @@ namespace NonogramSolver.Core.Services.Methods
                     filledGroups.RemoveAll(x => x.Cells.Count == groupNumber.Key);
                 }
             }
-            
+
             emptyGroups.AddRange(filledGroups);
 
             return emptyGroups;

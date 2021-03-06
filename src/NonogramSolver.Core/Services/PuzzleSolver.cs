@@ -23,7 +23,7 @@ namespace NonogramSolver.Core.Services
                                                   Number = c
                                               }).ToList())
                                               .ToList();
-            
+
             var vertical = verticalNumbers.Select(x => x.Select(c => new LineNumber
                                           {
                                               Number = c

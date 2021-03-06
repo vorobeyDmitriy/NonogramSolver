@@ -7,21 +7,16 @@ using NonogramSolver.Core.Models;
 namespace NonogramSolver.Core.Services.Methods
 {
     /// <summary>
-    /// Method to fill edge numbers. Edge numbers are numbers that have one (or more) starting (ending) filled cells
+    ///     Method to fill edge numbers. Edge numbers are numbers that have one (or more) starting (ending) filled cells
     ///     and all previous (next) cells are resolved
     /// </summary>
     /// <remarks>
-    /// I.e. 2 2 |O X _ _ _ X O| => 2 2 |O X X O X X O|
+    ///     I.e. 2 2 |O X _ _ _ X O| => 2 2 |O X X O X X O|
     /// </remarks>
     public class ResolvedEdgeNumbersMethod : MethodBase, IIterationMethod, IGroupMethod
     {
         public ResolvedEdgeNumbersMethod(ICellsService cellsService)
             : base(cellsService) { }
-
-        public override void ProcessLine(Line line)
-        {
-            ProcessCells(line.Cells, line.Numbers);
-        }
 
         public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
@@ -34,6 +29,11 @@ namespace NonogramSolver.Core.Services.Methods
             }
 
             ProcessCells(group.Cells, numbers, false);
+        }
+
+        public override void ProcessLine(Line line)
+        {
+            ProcessCells(line.Cells, line.Numbers);
         }
 
         private void ProcessCells(List<Cell> cells, List<LineNumber> numbers, bool withResolve = true)

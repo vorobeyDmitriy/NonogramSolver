@@ -7,16 +7,16 @@ using NonogramSolver.Core.Models;
 namespace NonogramSolver.Core.Services.Methods
 {
     /// <summary>
-    /// Method to resolve lines that was already resolved but not marked as Resolved 
+    ///     Method to resolve lines that was already resolved but not marked as Resolved
     /// </summary>
     /// <remarks>
-    /// I.e. 2 1 |X X _ X _| => |X X O X O| and numbers marked as resolved
+    ///     I.e. 2 1 |X X _ X _| => |X X O X O| and numbers marked as resolved
     /// </remarks>
     public class ResolveCompletedLinesMethod : MethodBase, IIterationMethod
     {
         public ResolveCompletedLinesMethod(ICellsService cellsService)
             : base(cellsService) { }
-        
+
         public override void ProcessLine(Line line)
         {
             ProcessCells(line.Cells, line.Numbers);
@@ -35,7 +35,5 @@ namespace NonogramSolver.Core.Services.Methods
             CellsService.CrossCells(cells.Where(x => x.Status == CellStatus.Empty));
             CellsService.ResolveNumbers(numbers);
         }
-
-        
     }
 }
