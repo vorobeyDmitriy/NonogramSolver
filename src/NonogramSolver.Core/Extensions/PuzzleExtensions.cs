@@ -24,7 +24,7 @@ namespace NonogramSolver.Core.Extensions
 
             PrintHeaderOfPuzzle(puzzle, additionalRows, additionalColumns);
             PrintBodyOfPuzzle(puzzle, additionalColumns);
-            
+
             foreach (var number in puzzle.VerticalNumbers)
             {
                 number.Reverse();
@@ -35,9 +35,9 @@ namespace NonogramSolver.Core.Extensions
                 number.Reverse();
             }
         }
-        
+
         #region Print Methods
-        
+
         private static void PrintHeaderOfPuzzle(Puzzle puzzle, int additionalRows, int additionalColumns)
         {
             for (var i = 0; i < additionalRows; i++)
@@ -53,7 +53,7 @@ namespace NonogramSolver.Core.Extensions
                         var number = puzzle.VerticalNumbers[j - additionalColumns]
                                            .ElementAtOrDefault(additionalRows - i - 1);
 
-                        Write(number?.Number, ConsoleColor.DarkRed,number?.IsResolved == true);
+                        Write(number?.Number, ConsoleColor.DarkRed, number?.IsResolved == true);
                     }
                 }
 
@@ -65,18 +65,18 @@ namespace NonogramSolver.Core.Extensions
         {
             for (var i = 0; i < puzzle.Rows; i++)
             {
-                for (var j = 0; j < puzzle.Columns+additionalColumns; j++)
+                for (var j = 0; j < puzzle.Columns + additionalColumns; j++)
                 {
                     if (j < additionalColumns)
                     {
-                        var number = puzzle.HorizontalNumbers[i].ElementAtOrDefault(additionalColumns-j-1);
-                        Write(number?.Number, ConsoleColor.DarkRed,number?.IsResolved == true);
+                        var number = puzzle.HorizontalNumbers[i].ElementAtOrDefault(additionalColumns - j - 1);
+                        Write(number?.Number, ConsoleColor.DarkRed, number?.IsResolved == true);
                     }
                     else
                     {
                         var cell = puzzle.Desk[i][j - additionalColumns];
                         var color = cell.Status == CellStatus.Filled ? ConsoleColor.White : ConsoleColor.DarkGray;
-                        Write(puzzle.Desk[i][j-additionalColumns], color, true);
+                        Write(puzzle.Desk[i][j - additionalColumns], color, true);
                     }
                 }
 
@@ -90,12 +90,11 @@ namespace NonogramSolver.Core.Extensions
             {
                 Console.ForegroundColor = color;
             }
-                        
+
             Console.Write("{0,3}", value);
             Console.ResetColor();
         }
 
         #endregion
-
     }
 }
