@@ -3,7 +3,7 @@ using NonogramSolver.Core.Models;
 
 namespace NonogramSolver.Core.Interfaces
 {
-    public interface ISolver
+    public interface IPuzzleSolver
     {
         Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers);

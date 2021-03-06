@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NonogramSolver.Core.Interfaces;
+using NonogramSolver.Core.Services;
+using NonogramSolver.Core.Services.Methods;
 
 namespace NonogramSolver.API
 {
@@ -20,6 +23,15 @@ namespace NonogramSolver.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddSingleton<IMethod, PartiallyFillGroupsMethod>();
+            services.AddSingleton<IGroupMethod, PartiallyFillNumberMethod>();
+            services.AddSingleton<IGroupMethod, ResolvedEdgeNumbersMethod>();
+            services.AddSingleton<IIterationMethod, ResolvedEdgeNumbersMethod>();
+            services.AddSingleton<IIterationMethod, ResolveCompletedLinesMethod>();
+            services.AddSingleton<IIterationMethod, PartiallyFillNumberMethod>();
+            services.AddSingleton<ICellsService, CellsService>();
+            services.AddSingleton<IPuzzleSolver, PuzzleSolver>();
 
             services.AddSwaggerGen(c =>
             {

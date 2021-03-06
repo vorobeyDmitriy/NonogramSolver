@@ -5,11 +5,11 @@ namespace NonogramSolver.Core.Models
 {
     public class Puzzle
     {
-        public List<List<LineNumber>> VerticalNumbers { get; set; }
-        public List<List<LineNumber>> HorizontalNumbers { get; set; }
-        public Cell[][] Desk { get; set; }
-        public int Columns { get; set; }
-        public int Rows { get; set; }
+        public List<List<LineNumber>> VerticalNumbers { get; }
+        public List<List<LineNumber>> HorizontalNumbers { get; }
+        public Cell[][] Desk { get; }
+        public int Columns { get; }
+        public int Rows { get; }
 
         public Puzzle(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers)
@@ -34,7 +34,7 @@ namespace NonogramSolver.Core.Models
             }
         }
 
-        public Line GetLine(int order, bool isRow)
+        private Line GetLine(int order, bool isRow)
         {
             Line line;
 
@@ -43,8 +43,7 @@ namespace NonogramSolver.Core.Models
                 line = new Line
                 {
                     Cells = Desk[order].ToList(),
-                    Numbers = HorizontalNumbers[order],
-                    IsRow = true
+                    Numbers = HorizontalNumbers[order]
                 };
 
                 return line;
@@ -55,14 +54,13 @@ namespace NonogramSolver.Core.Models
             line = new Line
             {
                 Cells = result,
-                Numbers = VerticalNumbers[order],
-                IsRow = false
+                Numbers = VerticalNumbers[order]
             };
 
             return line;
         }
         
-        public List<Line> GetLines()
+        public IEnumerable<Line> GetLines()
         {
             var result = new List<Line>();
             
@@ -74,19 +72,6 @@ namespace NonogramSolver.Core.Models
             for (var i = 0; i < Columns; i++)
             {
                 result.Add(GetLine(i, false));                
-            }
-
-            return result;
-        }
-
-        public List<Line> GetLines(bool isRow)
-        {
-            var linesCount = isRow ? Rows : Columns;
-            var result = new List<Line>();
-            
-            for (var i = 0; i < linesCount; i++)
-            {
-                result.Add(GetLine(i, isRow));                
             }
 
             return result;

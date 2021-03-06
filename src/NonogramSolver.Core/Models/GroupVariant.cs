@@ -8,7 +8,7 @@ namespace NonogramSolver.Core.Models
         public int GroupIndex { get; set; }
         public List<int> NumbersIndexes { get; set; }
 
-        public bool IsValid(List<LineNumber> allNumbers, List<Group> groups)
+        public bool IsValid(IEnumerable<LineNumber> allNumbers, List<Group> groups)
         {
             var group = groups[GroupIndex];
 

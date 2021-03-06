@@ -18,7 +18,7 @@ namespace NonogramSolver.Core.Tests
         [TestCaseSource(typeof(PuzzlesFactory), nameof(PuzzlesFactory.GetPuzzlesWithSolutions))]
         public void Solve_DifferentPuzzles_Resolved(PuzzleWithSolution puzzleWithSolution)
         {
-            var solver = GetService<ISolver>();
+            var solver = GetService<IPuzzleSolver>();
             
             var solvedPuzzle = solver.Solve(puzzleWithSolution.Puzzle);
             

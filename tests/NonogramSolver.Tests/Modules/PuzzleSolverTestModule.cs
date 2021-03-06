@@ -10,7 +10,6 @@ namespace NonogramSolver.Tests.Modules
         protected override void RegisterDependencies(IServiceCollection collection)
         {
             collection.AddSingleton<IMethod, ResolveCompletedLinesMethod>();
-            collection.AddSingleton<IMethod, ResolveTrivialLinesMethod>();
             collection.AddSingleton<IMethod, PartiallyFillNumberMethod>();
             collection.AddSingleton<IMethod, PartiallyFillGroupsMethod>();
             collection.AddSingleton<IGroupMethod, PartiallyFillNumberMethod>();
@@ -18,7 +17,7 @@ namespace NonogramSolver.Tests.Modules
             collection.AddSingleton<IIterationMethod, ResolveCompletedLinesMethod>();
             collection.AddSingleton<IIterationMethod, PartiallyFillNumberMethod>();
             collection.AddSingleton<ICellsService, CellsService>();
-            collection.AddSingleton<ISolver, Solver>();
+            collection.AddSingleton<IPuzzleSolver, PuzzleSolver>();
             base.RegisterDependencies(collection);
         }
     }

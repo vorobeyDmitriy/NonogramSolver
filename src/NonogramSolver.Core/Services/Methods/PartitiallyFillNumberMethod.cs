@@ -17,17 +17,7 @@ namespace NonogramSolver.Core.Services.Methods
         public PartiallyFillNumberMethod(ICellsService cellsService)
             : base(cellsService) { }
 
-        public override void ProcessPuzzle(Puzzle puzzle)
-        {
-            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
-
-            foreach (var line in lines)
-            {
-                ProcessLine(line);
-            }
-        }
-
-        public void ProcessLine(Line line)
+        public override void ProcessLine(Line line)
         {
             ProcessCells(line.Cells, line.Numbers);
         }

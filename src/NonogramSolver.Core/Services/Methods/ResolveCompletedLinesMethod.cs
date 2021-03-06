@@ -17,22 +17,12 @@ namespace NonogramSolver.Core.Services.Methods
         public ResolveCompletedLinesMethod(ICellsService cellsService)
             : base(cellsService) { }
         
-        public override void ProcessPuzzle(Puzzle puzzle)
+        public override void ProcessLine(Line line)
         {
-            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
-            
-            foreach (var line in lines)
-            {
-                ProcessLine(line);
-            }
-        }
-        
-        public void ProcessLine(Line line)
-        {
-            ResolveCells(line.Cells, line.Numbers);
+            ProcessCells(line.Cells, line.Numbers);
         }
 
-        private void ResolveCells(IReadOnlyCollection<Cell> cells, IReadOnlyCollection<LineNumber> numbers)
+        private void ProcessCells(IReadOnlyCollection<Cell> cells, IReadOnlyCollection<LineNumber> numbers)
         {
             var filledCellsCount = cells.Count(x => x.Status == CellStatus.Filled);
             var sumOfNumbers = numbers.Sum(x => x.Number);
