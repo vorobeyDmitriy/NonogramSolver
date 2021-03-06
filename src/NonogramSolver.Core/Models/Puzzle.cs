@@ -5,12 +5,6 @@ namespace NonogramSolver.Core.Models
 {
     public class Puzzle
     {
-        public List<List<LineNumber>> VerticalNumbers { get; }
-        public List<List<LineNumber>> HorizontalNumbers { get; }
-        public Cell[][] Desk { get; }
-        public int Columns { get; }
-        public int Rows { get; }
-
         public Puzzle(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
             List<List<LineNumber>> verticalNumbers)
         {
@@ -33,6 +27,12 @@ namespace NonogramSolver.Core.Models
                 }
             }
         }
+
+        public List<List<LineNumber>> VerticalNumbers { get; }
+        public List<List<LineNumber>> HorizontalNumbers { get; }
+        public Cell[][] Desk { get; }
+        public int Columns { get; }
+        public int Rows { get; }
 
         private Line GetLine(int order, bool isRow)
         {
@@ -59,19 +59,19 @@ namespace NonogramSolver.Core.Models
 
             return line;
         }
-        
+
         public IEnumerable<Line> GetLines()
         {
             var result = new List<Line>();
-            
+
             for (var i = 0; i < Rows; i++)
             {
-                result.Add(GetLine(i, true));                
+                result.Add(GetLine(i, true));
             }
-            
+
             for (var i = 0; i < Columns; i++)
             {
-                result.Add(GetLine(i, false));                
+                result.Add(GetLine(i, false));
             }
 
             return result;

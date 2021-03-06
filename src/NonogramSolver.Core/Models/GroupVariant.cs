@@ -13,7 +13,7 @@ namespace NonogramSolver.Core.Models
             var group = groups[GroupIndex];
 
             var numbers = allNumbers.Where((_, i) => NumbersIndexes.Contains(i)).ToList();
-            
+
             var numbersLengthWithSpaces = numbers.Sum(x => x.Number) + numbers.Count - 1;
 
             return group.Cells.Count >= numbersLengthWithSpaces;
