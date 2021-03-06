@@ -5,7 +5,7 @@ namespace NonogramSolver.Core.Models
 {
     public class LineVariant
     {
-        public List<GroupVariant> Variants { get; set; }
+        public List<GroupVariant> Variants { get; init; }
         
         public bool IsValid(List<LineNumber> numbers, List<Group> groups)
         {
