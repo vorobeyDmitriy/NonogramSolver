@@ -5,8 +5,8 @@ namespace NonogramSolver.Core.Interfaces
 {
     public interface IPuzzleSolver
     {
-        Puzzle Solve(int rows, int columns, List<List<LineNumber>> horizontalNumbers,
-            List<List<LineNumber>> verticalNumbers);
+        Puzzle Solve(int rows, int columns, IEnumerable<List<int>> horizontalNumbers,
+            IEnumerable<List<int>> verticalNumbers);
 
         Puzzle Solve(Puzzle puzzle);
     }
