@@ -2,7 +2,6 @@
 using System.Linq;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
-using NonogramSolver.Core.Services.Methods;
 
 namespace NonogramSolver.Core.Services
 {

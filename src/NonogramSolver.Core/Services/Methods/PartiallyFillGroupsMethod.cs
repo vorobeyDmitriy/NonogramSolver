@@ -122,7 +122,7 @@ namespace NonogramSolver.Core.Services.Methods
             return result;
         }
 
-        private List<LineVariant> GetLineVariants(int groupsCount, List<LineNumber> numbers, int currentGroupIndex)
+        private List<LineVariant> GetLineVariants(int groupsCount, IReadOnlyCollection<LineNumber> numbers, int currentGroupIndex)
         {
             var resultLineVariants = new List<LineVariant>();
 
@@ -268,7 +268,7 @@ namespace NonogramSolver.Core.Services.Methods
                 {
                     var group = result.ElementAtOrDefault(counter) ?? new Group
                     {
-                        Cells = new List<Cell>(),
+                        Cells = new List<Cell>()
                     };
 
                     group.Cells.Add(cell);
