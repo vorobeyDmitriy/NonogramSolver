@@ -22,7 +22,8 @@ namespace NonogramSolver.Core.Models
         {
             var fieldInfo = Status.GetType().GetField(Status.ToString());
 
-            if (fieldInfo?.GetCustomAttributes(typeof(DescriptionAttribute), false) is DescriptionAttribute[] attributes && attributes.Any())
+            if (fieldInfo?.GetCustomAttributes(typeof(DescriptionAttribute),
+                    false) is DescriptionAttribute[] attributes && attributes.Any())
             {
                 return attributes.First().Description;
             }

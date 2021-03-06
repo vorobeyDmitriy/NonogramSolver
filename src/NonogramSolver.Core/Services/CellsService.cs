@@ -14,14 +14,6 @@ namespace NonogramSolver.Core.Services
             }
         }
 
-        public void FillCells(IEnumerable<Cell> cells)
-        {
-            foreach (var cell in cells)
-            {
-                cell.Fill();
-            }
-        }
-
         public void FillNumber(List<Cell> cells, LineNumber number, int startIndex, bool withResolve = true)
         {
             for (var i = startIndex; i < startIndex + number.Number; i++)
@@ -38,7 +30,7 @@ namespace NonogramSolver.Core.Services
 
             if (withResolve)
             {
-                number.Resolve(startIndex, startIndex + number.Number - 1);
+                number.Resolve();
             }
         }
 

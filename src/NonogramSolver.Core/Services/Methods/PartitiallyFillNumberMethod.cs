@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using NonogramSolver.Core.Interfaces;
 using NonogramSolver.Core.Models;
@@ -7,39 +6,24 @@ using NonogramSolver.Core.Models;
 namespace NonogramSolver.Core.Services.Methods
 {
     /// <summary>
-    /// Method to fill numbers that have one or more cells with determined position 
+    ///     Method to fill numbers that have one or more cells with determined position
     /// </summary>
     /// <remarks>
-    /// I.e. 3 |_ _ _ _ _| => 3 |_ _ X _ _|
+    ///     I.e. 3 |_ _ _ _ _| => 3 |_ _ X _ _|
     /// </remarks>
     public class PartiallyFillNumberMethod : MethodBase, IGroupMethod, IIterationMethod
     {
         public PartiallyFillNumberMethod(ICellsService cellsService)
             : base(cellsService) { }
 
-        public override void ProcessPuzzle(Puzzle puzzle)
-        {
-            var lines = puzzle.GetLines().Where(x => !x.IsResolved());
-            foreach (var line in lines)
-            {
-                ProcessLine(line);
-            }
-        }
-
-        public void ProcessLine(Line line)
-        {
-            if (line.IsResolved())
-            {
-                return;
-            }
-
-            ProcessCells(line.Cells, line.Numbers);
-
-        }
-        
         public void ProcessGroup(Group group, List<LineNumber> numbers)
         {
             ProcessCells(group.Cells, numbers);
+        }
+
+        public override void ProcessLine(Line line)
+        {
+            ProcessCells(line.Cells, line.Numbers);
         }
 
         private static void ProcessCells(IReadOnlyList<Cell> cells, List<LineNumber> numbers)

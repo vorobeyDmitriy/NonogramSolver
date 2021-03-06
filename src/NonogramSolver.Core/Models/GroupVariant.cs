@@ -5,15 +5,15 @@ namespace NonogramSolver.Core.Models
 {
     public class GroupVariant
     {
-        public int GroupIndex { get; set; }
-        public List<int> NumbersIndexes { get; set; }
+        public int GroupIndex { get; init; }
+        public List<int> NumbersIndexes { get; init; }
 
-        public bool IsValid(List<LineNumber> allNumbers, List<Group> groups)
+        public bool IsValid(IEnumerable<LineNumber> allNumbers, List<Group> groups)
         {
             var group = groups[GroupIndex];
 
-            var numbers = allNumbers.Where((x, i) => NumbersIndexes.Contains(i)).ToList();
-            
+            var numbers = allNumbers.Where((_, i) => NumbersIndexes.Contains(i)).ToList();
+
             var numbersLengthWithSpaces = numbers.Sum(x => x.Number) + numbers.Count - 1;
 
             return group.Cells.Count >= numbersLengthWithSpaces;
